@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio 7.0.1.654 (http://www.liquid-technologies.com)-->
+<xs:schema xmlns:pjs="http://www.maileva.fr/MailevaPJSSchema" xmlns:com="http://www.maileva.fr/CommonSchema" xmlns:mlv="http://www.maileva.fr/MailevaSpecificSchema" elementFormDefault="qualified" targetNamespace="http://www.maileva.fr/MailevaPJSSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="Maileva.xsd" namespace="http://www.maileva.fr/MailevaSpecificSchema" />
+  <xs:import schemaLocation="Common.xsd" namespace="http://www.maileva.fr/CommonSchema" />
+  <xs:element name="Campaign">
+    <xs:complexType>
+      <xs:all>
+        <xs:element minOccurs="1" maxOccurs="1" name="Requests">
+          <xs:complexType>
+            <xs:sequence maxOccurs="1">
+              <xs:element minOccurs="1" maxOccurs="unbounded" name="Request">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="1" maxOccurs="1" name="Recipients">
+                      <xs:complexType>
+                        <xs:all minOccurs="1" maxOccurs="1">
+                          <xs:element minOccurs="0" maxOccurs="1" name="Internal">
+                            <xs:complexType>
+                              <xs:sequence minOccurs="1" maxOccurs="1">
+                                <xs:element xmlns:q1="http://www.maileva.fr/CommonSchema" minOccurs="1" maxOccurs="30000" name="Recipient" type="q1:Recipient" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Senders">
+                      <xs:complexType>
+                        <xs:sequence minOccurs="1" maxOccurs="1">
+                          <xs:element minOccurs="1" maxOccurs="unbounded" name="Sender">
+                            <xs:complexType>
+                              <xs:complexContent mixed="false">
+                                <xs:extension xmlns:q1="http://www.maileva.fr/CommonSchema" base="q1:Sender" />
+                              </xs:complexContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="1" name="DocumentData">
+                      <xs:complexType>
+                        <xs:all minOccurs="1" maxOccurs="1">
+                          <xs:element minOccurs="0" maxOccurs="1" name="Documents">
+                            <xs:complexType>
+                              <xs:sequence minOccurs="1" maxOccurs="1">
+                                <xs:element minOccurs="1" maxOccurs="unbounded" name="Document">
+                                  <xs:complexType>
+                                    <xs:complexContent mixed="false">
+                                      <xs:extension xmlns:q2="http://www.maileva.fr/CommonSchema" base="q2:Document" />
+                                    </xs:complexContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Options">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element xmlns:q1="http://www.maileva.fr/MailevaSpecificSchema" minOccurs="0" maxOccurs="1" name="RequestOption" type="q1:RequestOption" />
+                          <xs:element minOccurs="0" maxOccurs="1" name="DocumentOptions">
+                            <xs:complexType>
+                              <xs:sequence minOccurs="1" maxOccurs="1">
+                                <xs:element minOccurs="1" maxOccurs="unbounded" name="DocumentOption">
+                                  <xs:complexType>
+                                    <xs:complexContent mixed="false">
+                                      <xs:extension xmlns:q3="http://www.maileva.fr/MailevaSpecificSchema" base="q3:DocumentOption" />
+                                    </xs:complexContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" maxOccurs="1" name="PageOptions">
+                            <xs:complexType>
+                              <xs:sequence minOccurs="1" maxOccurs="1">
+                                <xs:element minOccurs="1" maxOccurs="unbounded" name="PageOption">
+                                  <xs:complexType>
+                                    <xs:complexContent mixed="false">
+                                      <xs:extension xmlns:q4="http://www.maileva.fr/MailevaSpecificSchema" base="q4:PageOption" />
+                                    </xs:complexContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Folds">
+                      <xs:complexType>
+                        <xs:sequence maxOccurs="1">
+                          <xs:element minOccurs="1" maxOccurs="unbounded" name="Fold">
+                            <xs:complexType>
+                              <xs:all>
+                                <xs:element name="RecipientId" type="xs:string" />
+                                <xs:element minOccurs="0" name="SenderId" type="xs:string" />
+                                <xs:element minOccurs="0" maxOccurs="1" name="Documents">
+                                  <xs:complexType>
+                                    <xs:sequence minOccurs="1" maxOccurs="1">
+                                      <xs:element xmlns:q1="http://www.maileva.fr/CommonSchema" minOccurs="1" maxOccurs="unbounded" name="Document" type="q1:DocInFold" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" maxOccurs="1" name="MergeValues">
+                                  <xs:complexType>
+                                    <xs:sequence minOccurs="1" maxOccurs="40">
+                                      <xs:element name="MergeValue" type="com:MergeValue" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:all>
+                              <xs:attribute name="Id" type="xs:string" use="required" />
+                              <xs:attribute name="TrackId" use="optional">
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:maxLength value="32" />
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:attribute>
+                            </xs:complexType>
+                            <xs:key name="foldMergeValuesUnicity">
+                              <xs:selector xpath=".//pjs:MergeValues/pjs:MergeValue/mlv:ValueWithRef" />
+                              <xs:field xpath="@Ref" />
+                            </xs:key>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="Notifications">
+                      <xs:complexType>
+                        <xs:sequence minOccurs="1" maxOccurs="1">
+                          <xs:element xmlns:q1="http://www.maileva.fr/MailevaSpecificSchema" minOccurs="1" maxOccurs="unbounded" name="Notification" type="q1:Notification" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="1" name="ProductionDate">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension xmlns:q1="http://www.maileva.fr/MailevaSpecificSchema" base="com:ComDate" />
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:all>
+                  <xs:attribute name="MediaType" type="com:ComMediaType" use="required" />
+                  <xs:attribute name="TrackId" use="optional">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="38" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+                <xs:key name="recipientId">
+                  <xs:selector xpath="./pjs:Recipients/pjs:Internal/pjs:Recipient" />
+                  <xs:field xpath="@Id" />
+                </xs:key>
+                <xs:key name="senderId">
+                  <xs:selector xpath="./pjs:Senders/pjs:Sender" />
+                  <xs:field xpath="@Id" />
+                </xs:key>
+                <xs:key name="documentId">
+                  <xs:selector xpath="./pjs:DocumentData/pjs:Documents/pjs:Document" />
+                  <xs:field xpath="@Id" />
+                </xs:key>
+                <xs:key name="foldOptionId">
+                  <xs:selector xpath="./pjs:Options/pjs:FoldOptions/pjs:FoldOption" />
+                  <xs:field xpath="@Id" />
+                </xs:key>
+                <xs:key name="documentOptionId">
+                  <xs:selector xpath="./pjs:Options/pjs:DocumentOptions/pjs:DocumentOption" />
+                  <xs:field xpath="@Id" />
+                </xs:key>
+                <xs:key name="pageOptionId">
+                  <xs:selector xpath="./pjs:Options/pjs:PageOptions/pjs:PageOption" />
+                  <xs:field xpath="@Id" />
+                </xs:key>
+                <xs:key name="foldId">
+                  <xs:selector xpath="./pjs:Folds/pjs:Fold" />
+                  <xs:field xpath="@Id" />
+                </xs:key>
+                <xs:unique name="mergeFieldRef">
+                  <xs:selector xpath=".//pjs:MergeField/mlv:Content/mlv:Id" />
+                  <xs:field xpath="." />
+                </xs:unique>
+                <xs:keyref name="foldRecipientId" refer="pjs:recipientId">
+                  <xs:selector xpath="./pjs:Folds/pjs:Fold/pjs:RecipientId" />
+                  <xs:field xpath="." />
+                </xs:keyref>
+                <xs:keyref name="foldSenderId" refer="pjs:senderId">
+                  <xs:selector xpath="./pjs:Folds/pjs:Fold/pjs:SenderId" />
+                  <xs:field xpath="." />
+                </xs:keyref>
+                <xs:keyref name="foldDocumentId" refer="pjs:documentId">
+                  <xs:selector xpath="./pjs:Folds/pjs:Fold/pjs:Documents/pjs:Document" />
+                  <xs:field xpath="@DocumentId" />
+                </xs:keyref>
+                <xs:keyref name="foldFoldOptionId" refer="pjs:foldOptionId">
+                  <xs:selector xpath="./pjs:Folds/pjs:Fold/pjs:FoldOptionId" />
+                  <xs:field xpath="." />
+                </xs:keyref>
+                <xs:keyref name="foldDocumentDocumentOptionId" refer="pjs:documentOptionId">
+                  <xs:selector xpath="./pjs:Folds/pjs:Fold/pjs:Documents/pjs:Document/mlv:DocumentOptionId" />
+                  <xs:field xpath="." />
+                </xs:keyref>
+                <xs:keyref name="foldDocumentPagePageOptionId" refer="pjs:pageOptionId">
+                  <xs:selector xpath="./pjs:Folds/pjs:Fold/pjs:Documents/pjs:Document/mlv:Pages/mlv:Page/mlv:PageOptionId" />
+                  <xs:field xpath="." />
+                </xs:keyref>
+                <xs:keyref name="mergeValueRef" refer="pjs:mergeFieldRef">
+                  <xs:selector xpath=".//pjs:MergeValue" />
+                  <xs:field xpath="@Ref" />
+                </xs:keyref>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="User">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Login">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Password">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="AuthType" type="com:ComAuthType" use="required" />
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+      <xs:attribute name="Name" use="optional">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="Version" type="com:ComVersion" use="required" />
+      <xs:attribute name="TrackId" use="optional">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="38" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="Application" type="com:ComApplicationName" use="optional" />
+      <xs:attribute name="BreakdownCode">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="100" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

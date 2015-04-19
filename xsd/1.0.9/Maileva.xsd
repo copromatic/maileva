@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio - FREE Community Edition 7.0.2.746 (http://www.liquid-technologies.com)-->
+<xs:schema xmlns:com="http://www.maileva.fr/CommonSchema" xmlns:mlv="http://www.maileva.fr/MailevaSpecificSchema" elementFormDefault="qualified" targetNamespace="http://www.maileva.fr/MailevaSpecificSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="Common.xsd" namespace="http://www.maileva.fr/CommonSchema" />
+  <xs:complexType name="RequestOption">
+    <xs:choice>
+      <xs:element name="PaperOption" type="mlv:RequestOptionPaper" />
+      <xs:element name="DigitalOption" type="mlv:RequestOptionDigital" />
+      <xs:element name="SmsOption" type="mlv:RequestOptionSms" />
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="RequestOptionPaper">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="RemoveInvalidReturnEnvelope" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StampAdjust" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FoldOption" type="mlv:FoldOptionPaper" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="RequestOptionDigital">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="FoldOption" type="mlv:FoldOptionDigital" />
+      <xs:element name="DepositType">
+        <xs:simpleType>
+          <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="DigitalArchiving" type="mlv:MlvDigiposteArchivingDuration" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="RequestOptionSms">
+    <xs:all>
+      <xs:element name="FoldOption" type="mlv:FoldOptionSms" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="FoldOption">
+    <xs:choice>
+      <xs:element name="PaperOption" type="mlv:FoldOptionPaper" />
+      <xs:element name="DigitalOption" type="mlv:FoldOptionDigital" />
+    </xs:choice>
+    <xs:attribute name="Id" type="xs:string" use="required" />
+  </xs:complexType>
+  <xs:complexType name="FoldOptionPaper">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="EnvelopeType" type="mlv:MlvEnvelopeType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EnvelopeWindowType" type="mlv:MlvEnvelopeWindowType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PostageClass" type="mlv:MlvPostageClass" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FoldPrintColor" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PrintSenderAddress" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PrintRecipTrackId" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TreatUndeliveredMail" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TreatAR" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DigitalArchiving" type="mlv:DigitalArchiving" />
+      <xs:element minOccurs="0" maxOccurs="1" name="UseFlyLeaf" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LogoRef">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="45" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="ReturnEnvelopeRef">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="8" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="DocumentOption" type="mlv:DocumentOptionPaper" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SwitchingPolicy" type="com:ComSwitchingPolicy" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ForceSendingMode" type="com:ComForceSendingMode" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="FoldOptionDigital">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="EnvelopeType" type="mlv:MlvEnvelopeType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EnvelopeWindowType" type="mlv:MlvEnvelopeWindowType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PostageClass" type="mlv:MlvPostageClass" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FoldPrintColor" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PrintSenderAddress" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PrintRecipTrackId" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TreatUndeliveredMail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="DigitalArchiving" type="mlv:DigitalArchiving" />
+      <xs:element minOccurs="0" maxOccurs="1" name="UseFlyLeaf" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LogoRef">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="45" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="DocumentOption" type="mlv:DocumentOptionDigital" />
+      <xs:element name="DepositTitle">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="32" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="DepositDescription">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="64" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="FoldOptionSms">
+    <xs:all>
+      <xs:element name="EmissionMode" type="mlv:MlvOfferType" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="DocumentOption">
+    <xs:choice>
+      <xs:element name="PaperOption" type="mlv:DocumentOptionPaper" />
+      <xs:element name="DigitalOption" type="mlv:DocumentOptionDigital" />
+    </xs:choice>
+    <xs:attribute name="Id" type="xs:string" use="required" />
+  </xs:complexType>
+  <xs:complexType name="DocumentOptionPaper">
+    <xs:all>
+      <xs:element minOccurs="0" name="PrintDuplex" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PageOption" type="mlv:PageOptionPaper" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Staple" type="xs:boolean" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="DocumentOptionDigital">
+    <xs:all>
+      <xs:element minOccurs="0" name="PrintDuplex" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PageOption" type="mlv:PageOptionDigital" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Staple" type="xs:boolean" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="PageOption">
+    <xs:choice>
+      <xs:element name="PaperOption" type="mlv:PageOptionPaper" />
+      <xs:element name="DigitalOption" type="mlv:PageOptionDigital" />
+    </xs:choice>
+    <xs:attribute name="Id" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="PageOptionPaper">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="BackgroundId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="45" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="InsertPageId">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="Type" type="com:ComInsertPageType" use="required" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="PageOptionDigital">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="BackgroundId">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="45" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="InsertPageId">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="Type" type="com:ComInsertPageType" use="required" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="Notification">
+    <xs:all>
+      <xs:element name="Format" type="mlv:MlvNotificationFormat" />
+      <xs:element name="Protocols">
+        <xs:complexType>
+          <xs:sequence minOccurs="1" maxOccurs="1">
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="Protocol">
+              <xs:complexType>
+                <xs:choice minOccurs="1" maxOccurs="1">
+                  <xs:element minOccurs="1" maxOccurs="1" name="Email">
+                    <xs:simpleType>
+                      <xs:restriction base="com:ComEmail">
+                        <xs:maxLength value="255" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element minOccurs="1" maxOccurs="1" name="Ftp" type="com:FtpNotificationProtocol" />
+                  <xs:element name="Cft" type="com:CftNotificationProtocol" />
+                  <xs:element name="Http" type="com:HttpNotificationProtocol" />
+                </xs:choice>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:all>
+    <xs:attribute name="Type" type="mlv:MlvNotificationType" use="required" />
+  </xs:complexType>
+  <xs:complexType name="DigitalArchiving">
+    <xs:all>
+      <xs:element name="Online" type="mlv:MlvDigitalArchivingDuration" />
+      <xs:element name="Standard" type="mlv:MlvDigitalArchivingDuration" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="FlyLeaf">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="Object">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="100" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Warning">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="24" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Type">
+        <xs:simpleType>
+          <xs:restriction base="mlv:MlvFlyLeafType">
+            <xs:enumeration value="STANDARD" />
+            <xs:enumeration value="CUSTOM" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:all>
+    <xs:attribute name="CustomRef" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="45" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:simpleType name="MlvEnvelopeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="C4" />
+      <xs:enumeration value="C6" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MlvEnvelopeWindowType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SMPL" />
+      <xs:enumeration value="DBL" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MlvPostageClass">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="STANDARD" />
+      <xs:enumeration value="SLOW" />
+      <xs:enumeration value="RECOMMANDE" />
+      <xs:enumeration value="RECOMMANDE_AR" />
+      <xs:enumeration value="SLOW_NB" />
+      <xs:enumeration value="DESTINEO_EL_STD_S1" />
+      <xs:enumeration value="DESTINEO_EL_STD_S2" />
+      <xs:enumeration value="DESTINEO_EL_MECA_S1" />
+      <xs:enumeration value="DESTINEO_EL_MECA_S2" />
+      <xs:enumeration value="LETTRE_GRAND_COMPTE" />
+      <xs:enumeration value="ECOPLI_GRAND_COMPTE" />
+      <xs:enumeration value="LETTRE_VERTE" />
+      <xs:enumeration value="LETTRE_VERTE_NB" />
+      <xs:enumeration value="LRE" />
+      <xs:enumeration value="LRE_AR" />
+      <xs:enumeration value="LRE_TE" />
+      <xs:enumeration value="LRE_TE_AR" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MlvDigitalArchivingDuration">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="12" />
+      <xs:enumeration value="36" />
+      <xs:enumeration value="72" />
+      <xs:enumeration value="120" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MlvOfferType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DIRECT_MKT" />
+      <xs:enumeration value="OTHER" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MlvNotificationFormat">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TXT" />
+      <xs:enumeration value="XML" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MlvNotificationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GENERAL" />
+      <xs:enumeration value="PND" />
+      <xs:enumeration value="LRE" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MlvFlyLeafType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="STANDARD" />
+      <xs:enumeration value="CUSTOM" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MlvDigiposteArchivingDuration">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="12" />
+      <xs:enumeration value="60" />
+      <xs:enumeration value="120" />
+      <xs:enumeration value="600" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

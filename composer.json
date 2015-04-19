@@ -1,0 +1,19 @@
+{
+    "name": "ghautecoeur/maileva",
+    "description": "API MailEva de La Poste",
+    "authors": [
+        {
+            "name": "Gaetan Hautecoeur",
+            "email": "gaetan.hautecoeur@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.5.*"
+    },
+    "autoload": {
+        "psr-4": { "Maileva\\": "src/" }
+    }
+}

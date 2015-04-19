@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio - FREE Community Edition 7.0.2.746 (http://www.liquid-technologies.com)-->
+<xs:schema xmlns:mlv="http://www.maileva.fr/CommonSchema" elementFormDefault="qualified" targetNamespace="http://www.maileva.fr/CommonSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="BatchRecipientPageDetails">
+    <xs:all>
+      <xs:element minOccurs="1" maxOccurs="1" name="physicalFirstPage">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="physicalLastPage">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="logicalFirstPage">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:int">
+              <xs:attribute name="position" use="optional">
+                <xs:simpleType>
+                  <xs:restriction base="xs:int">
+                    <xs:minInclusive value="1" />
+                    <xs:maxInclusive value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="logicalLastPage">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:int">
+              <xs:attribute name="position" use="optional">
+                <xs:simpleType>
+                  <xs:restriction base="xs:int">
+                    <xs:minInclusive value="1" />
+                    <xs:maxInclusive value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="StaplingDetails" type="mlv:StaplingDetails" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="StaplingDetails">
+    <xs:sequence>
+      <xs:element name="Stapling">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="FirstPageOffset" type="xs:int" />
+            <xs:element name="LastPageOffset" type="xs:int" />
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BatchSender">
+    <xs:all>
+      <xs:element minOccurs="1" maxOccurs="1" name="PaperAddress" type="mlv:PaperAddress" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Email" type="mlv:ComEmail" />
+    </xs:all>
+    <xs:attribute name="Id" type="xs:string" use="required" />
+  </xs:complexType>
+  <xs:complexType name="Sender">
+    <xs:all>
+      <xs:element minOccurs="0" name="PaperAddress" type="mlv:PaperAddress" />
+      <xs:element minOccurs="0" name="SmsAddress" type="mlv:SmsAddress" />
+    </xs:all>
+    <xs:attribute name="Id" type="xs:string" use="required" />
+  </xs:complexType>
+  <xs:complexType name="Recipient">
+    <xs:all>
+      <xs:element minOccurs="0" name="PaperAddress" type="mlv:PaperAddress" />
+      <xs:element minOccurs="0" name="DigitalAddress" type="mlv:DigitalAddress" />
+      <xs:element minOccurs="0" name="SmsAddress" type="mlv:SmsAddress" />
+      <xs:element minOccurs="0" name="EmailAddress" type="mlv:EmailAddress" />
+      <xs:element minOccurs="0" name="Category">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="UNKNOWN" />
+            <xs:enumeration value="INDIVIDUAL" />
+            <xs:enumeration value="PROFESSIONAL" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="HasDigitalId" type="xs:boolean" />
+    </xs:all>
+    <xs:attribute name="Id" type="xs:string" use="required" />
+    <xs:attribute name="TrackId" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="32" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="Document">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="Shrink" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Content">
+        <xs:complexType>
+          <xs:choice>
+            <xs:element name="Value">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:maxLength value="255" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="Uri" type="mlv:ComUri" />
+          </xs:choice>
+          <xs:attribute name="encoding" type="mlv:ComCharset" use="optional" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Size" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Hash">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="Type" use="required">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="MD5" />
+                    <xs:enumeration value="SHA1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="MergeFields">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="MergeField" type="mlv:MergeField" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:all>
+    <xs:attribute name="Id" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="15" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="Address">
+    <xs:choice>
+      <xs:element name="PaperAddress" type="mlv:PaperAddress" />
+      <xs:element name="FaxAddress" type="mlv:FaxAddress" />
+      <xs:element name="EmailAddress" type="mlv:EmailAddress" />
+      <xs:element name="SmsAddress" type="mlv:SmsAddress" />
+      <xs:element name="DigiatlAddress" type="mlv:DigitalAddress" />
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="PaperAddress">
+    <xs:all>
+      <xs:element name="AddressLines">
+        <xs:complexType>
+          <xs:sequence maxOccurs="1">
+            <xs:element minOccurs="0" maxOccurs="1" name="AddressLine1" type="mlv:ComAddressString" />
+            <xs:element minOccurs="0" name="AddressLine2" type="mlv:ComAddressString" />
+            <xs:element minOccurs="0" name="AddressLine3" type="mlv:ComAddressString" />
+            <xs:element minOccurs="0" name="AddressLine4" type="mlv:ComAddressString" />
+            <xs:element minOccurs="0" name="AddressLine5" type="mlv:ComAddressString" />
+            <xs:element minOccurs="0" maxOccurs="1" name="AddressLine6" type="mlv:ComAddressString" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Country" type="xs:string" />
+      <xs:element minOccurs="0" name="CountryCode" type="mlv:ComCountryCode" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="FaxAddress">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="FaxNumber" type="mlv:ComPhone" />
+      <xs:element minOccurs="0" name="PhoneNumber" type="mlv:ComPhone" />
+      <xs:element minOccurs="0" name="FaxName" type="xs:string" />
+      <xs:element minOccurs="0" name="FaxCorporation" type="xs:string" />
+      <xs:element minOccurs="0" name="FaxEmail" type="mlv:ComEmail" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="EmailAddress">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="Email" type="mlv:ComEmail" />
+      <xs:element minOccurs="0" name="EmailFrom" type="xs:string" />
+      <xs:element minOccurs="0" name="EmailReply" type="mlv:ComEmail" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="SmsAddress">
+    <xs:all>
+      <xs:element name="SmsNumber" type="mlv:ComPhone" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="DigitalAddress">
+    <xs:all>
+      <xs:element name="Identifier" type="mlv:ComAddressString" />
+      <xs:element name="FirstName" type="mlv:ComAddressString" />
+      <xs:element name="LastName" type="mlv:ComAddressString" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="License">
+    <xs:all>
+      <xs:element name="Number">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="100" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Id">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="100" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="DocInFold">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="Pages">
+        <xs:complexType>
+          <xs:sequence minOccurs="1" maxOccurs="1">
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="Page">
+              <xs:complexType>
+                <xs:complexContent mixed="false">
+                  <xs:extension base="mlv:PageInDoc" />
+                </xs:complexContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="DocumentOptionId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StaplingDetails" type="mlv:StaplingDetails" />
+    </xs:all>
+    <xs:attribute name="DocumentId" type="xs:string" use="optional" />
+    <xs:attribute name="FirstPage" type="xs:positiveInteger" use="optional" />
+    <xs:attribute name="LastPage" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:positiveInteger" />
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="PageInDoc">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="PageOptionId" type="xs:string" />
+    </xs:all>
+    <xs:attribute name="Number" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="0" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="MergeField">
+    <xs:all>
+      <xs:element name="PageNumber" type="xs:int" />
+      <xs:element name="FontName">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="FontSize" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FontColor">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="\#[0-9a-fA-F]{6}" />
+            <xs:maxLength value="20" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="FontBold" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FontItalic" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FontUnderline" type="xs:boolean" />
+      <xs:element name="PosUnit">
+        <xs:simpleType>
+          <xs:restriction base="mlv:ComMeasureUnit">
+            <xs:enumeration value="CM" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="PosX" type="xs:float" />
+      <xs:element name="PosY" type="xs:float" />
+      <xs:element name="Content">
+        <xs:complexType>
+          <xs:choice>
+            <xs:element minOccurs="1" maxOccurs="1" name="Value">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:maxLength value="100" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" name="Id">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:maxLength value="12" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="Automatic" type="mlv:ComAutoMergeField" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Orientation" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Halign" type="mlv:ComHalignType" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="MergeValue">
+    <xs:choice>
+      <xs:element name="ValueWithRef">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="Ref" type="xs:string" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="FtpNotificationProtocol">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="Login">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="64" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Folder">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="CftNotificationProtocol">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="Partner">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="64" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Idf">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="HttpNotificationProtocol" />
+  <xs:simpleType name="ComDate">
+    <xs:restriction base="xs:dateTime" />
+  </xs:simpleType>
+  <xs:simpleType name="ComEmail">
+    <xs:restriction base="xs:string" />
+  </xs:simpleType>
+  <xs:simpleType name="ComVersion">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1.0" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComMediaType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PAPER" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComString">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="38" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComFileType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DOC" />
+      <xs:enumeration value="PDF" />
+      <xs:enumeration value="HTM" />
+      <xs:enumeration value="HTML" />
+      <xs:enumeration value="TXT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComExtention">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DOC" />
+      <xs:enumeration value="TXT" />
+      <xs:enumeration value="DOC" />
+      <xs:enumeration value="HTML" />
+      <xs:enumeration value="HTM" />
+      <xs:enumeration value="RTF" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComAddressString">
+    <xs:restriction base="xs:string" />
+  </xs:simpleType>
+  <xs:simpleType name="ComRequestId">
+    <xs:restriction base="xs:string" />
+  </xs:simpleType>
+  <xs:simpleType name="ComFileName">
+    <xs:restriction base="xs:string">
+      <xs:pattern value=".+\.\c+" />
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComApplicationName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="20" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComCountryCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AF" />
+      <xs:enumeration value="ZA" />
+      <xs:enumeration value="AL" />
+      <xs:enumeration value="DZ" />
+      <xs:enumeration value="DE" />
+      <xs:enumeration value="AD" />
+      <xs:enumeration value="AO" />
+      <xs:enumeration value="AI" />
+      <xs:enumeration value="AQ" />
+      <xs:enumeration value="AG" />
+      <xs:enumeration value="AN" />
+      <xs:enumeration value="SA" />
+      <xs:enumeration value="AR" />
+      <xs:enumeration value="AM" />
+      <xs:enumeration value="AW" />
+      <xs:enumeration value="AU" />
+      <xs:enumeration value="AT" />
+      <xs:enumeration value="AZ" />
+      <xs:enumeration value="BS" />
+      <xs:enumeration value="BH" />
+      <xs:enumeration value="BD" />
+      <xs:enumeration value="BB" />
+      <xs:enumeration value="BY" />
+      <xs:enumeration value="BE" />
+      <xs:enumeration value="BZ" />
+      <xs:enumeration value="BJ" />
+      <xs:enumeration value="BM" />
+      <xs:enumeration value="BT" />
+      <xs:enumeration value="BO" />
+      <xs:enumeration value="BA" />
+      <xs:enumeration value="BW" />
+      <xs:enumeration value="BV" />
+      <xs:enumeration value="BR" />
+      <xs:enumeration value="BN" />
+      <xs:enumeration value="BG" />
+      <xs:enumeration value="BF" />
+      <xs:enumeration value="BI" />
+      <xs:enumeration value="KY" />
+      <xs:enumeration value="KH" />
+      <xs:enumeration value="CM" />
+      <xs:enumeration value="CA" />
+      <xs:enumeration value="CV" />
+      <xs:enumeration value="CF" />
+      <xs:enumeration value="CL" />
+      <xs:enumeration value="CN" />
+      <xs:enumeration value="CX" />
+      <xs:enumeration value="CY" />
+      <xs:enumeration value="CC" />
+      <xs:enumeration value="CO" />
+      <xs:enumeration value="KM" />
+      <xs:enumeration value="CG" />
+      <xs:enumeration value="CD" />
+      <xs:enumeration value="CK" />
+      <xs:enumeration value="KR" />
+      <xs:enumeration value="KP" />
+      <xs:enumeration value="CR" />
+      <xs:enumeration value="CI" />
+      <xs:enumeration value="HR" />
+      <xs:enumeration value="CU" />
+      <xs:enumeration value="DK" />
+      <xs:enumeration value="DJ" />
+      <xs:enumeration value="DO" />
+      <xs:enumeration value="DM" />
+      <xs:enumeration value="EG" />
+      <xs:enumeration value="SV" />
+      <xs:enumeration value="AE" />
+      <xs:enumeration value="EC" />
+      <xs:enumeration value="ER" />
+      <xs:enumeration value="ES" />
+      <xs:enumeration value="EE" />
+      <xs:enumeration value="US" />
+      <xs:enumeration value="ET" />
+      <xs:enumeration value="FK" />
+      <xs:enumeration value="FO" />
+      <xs:enumeration value="FJ" />
+      <xs:enumeration value="FI" />
+      <xs:enumeration value="FR" />
+      <xs:enumeration value="GA" />
+      <xs:enumeration value="GM" />
+      <xs:enumeration value="GE" />
+      <xs:enumeration value="GS" />
+      <xs:enumeration value="GH" />
+      <xs:enumeration value="GI" />
+      <xs:enumeration value="GR" />
+      <xs:enumeration value="GD" />
+      <xs:enumeration value="GL" />
+      <xs:enumeration value="GP" />
+      <xs:enumeration value="GU" />
+      <xs:enumeration value="GT" />
+      <xs:enumeration value="GN" />
+      <xs:enumeration value="GW" />
+      <xs:enumeration value="GQ" />
+      <xs:enumeration value="GY" />
+      <xs:enumeration value="GF" />
+      <xs:enumeration value="HT" />
+      <xs:enumeration value="HM" />
+      <xs:enumeration value="HN" />
+      <xs:enumeration value="HK" />
+      <xs:enumeration value="HU" />
+      <xs:enumeration value="UM" />
+      <xs:enumeration value="VG" />
+      <xs:enumeration value="VI" />
+      <xs:enumeration value="IN" />
+      <xs:enumeration value="ID" />
+      <xs:enumeration value="IR" />
+      <xs:enumeration value="IQ" />
+      <xs:enumeration value="IE" />
+      <xs:enumeration value="IS" />
+      <xs:enumeration value="IL" />
+      <xs:enumeration value="IT" />
+      <xs:enumeration value="JM" />
+      <xs:enumeration value="JP" />
+      <xs:enumeration value="JO" />
+      <xs:enumeration value="KZ" />
+      <xs:enumeration value="KE" />
+      <xs:enumeration value="KG" />
+      <xs:enumeration value="KI" />
+      <xs:enumeration value="KW" />
+      <xs:enumeration value="LA" />
+      <xs:enumeration value="LS" />
+      <xs:enumeration value="LV" />
+      <xs:enumeration value="LB" />
+      <xs:enumeration value="LR" />
+      <xs:enumeration value="LY" />
+      <xs:enumeration value="LI" />
+      <xs:enumeration value="LT" />
+      <xs:enumeration value="LU" />
+      <xs:enumeration value="MO" />
+      <xs:enumeration value="MK" />
+      <xs:enumeration value="MG" />
+      <xs:enumeration value="MY" />
+      <xs:enumeration value="MW" />
+      <xs:enumeration value="MV" />
+      <xs:enumeration value="ML" />
+      <xs:enumeration value="MT" />
+      <xs:enumeration value="MP" />
+      <xs:enumeration value="MA" />
+      <xs:enumeration value="MH" />
+      <xs:enumeration value="MQ" />
+      <xs:enumeration value="MU" />
+      <xs:enumeration value="MR" />
+      <xs:enumeration value="YT" />
+      <xs:enumeration value="MX" />
+      <xs:enumeration value="FM" />
+      <xs:enumeration value="MD" />
+      <xs:enumeration value="MC" />
+      <xs:enumeration value="MN" />
+      <xs:enumeration value="MS" />
+      <xs:enumeration value="MZ" />
+      <xs:enumeration value="MM" />
+      <xs:enumeration value="NA" />
+      <xs:enumeration value="NR" />
+      <xs:enumeration value="NP" />
+      <xs:enumeration value="NI" />
+      <xs:enumeration value="NE" />
+      <xs:enumeration value="NG" />
+      <xs:enumeration value="NU" />
+      <xs:enumeration value="NF" />
+      <xs:enumeration value="NO" />
+      <xs:enumeration value="NC" />
+      <xs:enumeration value="NZ" />
+      <xs:enumeration value="IO" />
+      <xs:enumeration value="OM" />
+      <xs:enumeration value="UG" />
+      <xs:enumeration value="UZ" />
+      <xs:enumeration value="PK" />
+      <xs:enumeration value="PW" />
+      <xs:enumeration value="PS" />
+      <xs:enumeration value="PA" />
+      <xs:enumeration value="PG" />
+      <xs:enumeration value="PY" />
+      <xs:enumeration value="NL" />
+      <xs:enumeration value="PE" />
+      <xs:enumeration value="PH" />
+      <xs:enumeration value="PN" />
+      <xs:enumeration value="PL" />
+      <xs:enumeration value="PF" />
+      <xs:enumeration value="PR" />
+      <xs:enumeration value="PT" />
+      <xs:enumeration value="QA" />
+      <xs:enumeration value="SK" />
+      <xs:enumeration value="CZ" />
+      <xs:enumeration value="RE" />
+      <xs:enumeration value="RO" />
+      <xs:enumeration value="GB" />
+      <xs:enumeration value="RU" />
+      <xs:enumeration value="RW" />
+      <xs:enumeration value="EH" />
+      <xs:enumeration value="KN" />
+      <xs:enumeration value="SM" />
+      <xs:enumeration value="PM" />
+      <xs:enumeration value="VC" />
+      <xs:enumeration value="SH" />
+      <xs:enumeration value="LC" />
+      <xs:enumeration value="SB" />
+      <xs:enumeration value="WS" />
+      <xs:enumeration value="AS" />
+      <xs:enumeration value="ST" />
+      <xs:enumeration value="SN" />
+      <xs:enumeration value="CS" />
+      <xs:enumeration value="SC" />
+      <xs:enumeration value="SL" />
+      <xs:enumeration value="SG" />
+      <xs:enumeration value="SI" />
+      <xs:enumeration value="SO" />
+      <xs:enumeration value="SD" />
+      <xs:enumeration value="LK" />
+      <xs:enumeration value="SE" />
+      <xs:enumeration value="CH" />
+      <xs:enumeration value="SR" />
+      <xs:enumeration value="SJ" />
+      <xs:enumeration value="SZ" />
+      <xs:enumeration value="SY" />
+      <xs:enumeration value="TJ" />
+      <xs:enumeration value="TW" />
+      <xs:enumeration value="TZ" />
+      <xs:enumeration value="TD" />
+      <xs:enumeration value="TF" />
+      <xs:enumeration value="TH" />
+      <xs:enumeration value="TL" />
+      <xs:enumeration value="TP" />
+      <xs:enumeration value="TG" />
+      <xs:enumeration value="TK" />
+      <xs:enumeration value="TO" />
+      <xs:enumeration value="TT" />
+      <xs:enumeration value="TN" />
+      <xs:enumeration value="TM" />
+      <xs:enumeration value="TC" />
+      <xs:enumeration value="TR" />
+      <xs:enumeration value="TV" />
+      <xs:enumeration value="UA" />
+      <xs:enumeration value="UY" />
+      <xs:enumeration value="VU" />
+      <xs:enumeration value="VA" />
+      <xs:enumeration value="VE" />
+      <xs:enumeration value="VN" />
+      <xs:enumeration value="WF" />
+      <xs:enumeration value="YE" />
+      <xs:enumeration value="YU" />
+      <xs:enumeration value="ZR" />
+      <xs:enumeration value="ZM" />
+      <xs:enumeration value="ZW" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComUri">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(\w+\.\w+|[0-9a-zA-Z]{11})" />
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComAuthType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PLAINTEXT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComCharset">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UTF-8" />
+      <xs:enumeration value="ISO-8859-1" />
+      <xs:enumeration value="CP1252" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComInsertPageType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RV" />
+      <xs:enumeration value="SPL" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComHalignType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LEFT" />
+      <xs:enumeration value="CENTER" />
+      <xs:enumeration value="RIGHT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComPhone">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(\+?\d{1,3})?((-| |,|\.)?\(\d+\))*((-| |,|\.)?\d){6,}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComMeasureUnit">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CM" />
+      <xs:enumeration value="MM" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComPartner">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MAILEVA" />
+      <xs:enumeration value="BTB" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComFormat">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="A4" />
+      <xs:enumeration value="A3" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComPriceUnit">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EUR" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComDocumentCategory">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FLOW" />
+      <xs:enumeration value="ASILAGE" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComPageColor">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BLUE" />
+      <xs:enumeration value="YELLOW" />
+      <xs:enumeration value="GREEN" />
+      <xs:enumeration value="PINK" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="BatchFile">
+    <xs:all>
+      <xs:element minOccurs="1" maxOccurs="1" name="Name" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Size" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Hash">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="Type" use="required">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="MD5" />
+                    <xs:enumeration value="SHA1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="physicalPagesCount">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="logicalPagesCount">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Color" type="mlv:ComPageColor" />
+    </xs:all>
+    <xs:attribute name="Id" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:int">
+          <xs:minInclusive value="1" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Type" use="required">
+      <xs:simpleType>
+        <xs:restriction base="mlv:ComBatchFileType" />
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:simpleType name="ComBatchFileType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TREATMENT" />
+      <xs:enumeration value="COMMAND" />
+      <xs:enumeration value="BANNER" />
+      <xs:enumeration value="SUMMARY" />
+      <xs:enumeration value="METROPOL" />
+      <xs:enumeration value="OTHER" />
+      <xs:enumeration value="BALLOT_BOX" />
+      <xs:enumeration value="PILOTE" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComVoteType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IN_BALLOT_BOX" />
+      <xs:enumeration value="BY_MAIL" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComAutoMergeField">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DIGITAL_SECURITY_CODE" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComSwitchingPolicy">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AUTOMATIC" />
+      <xs:enumeration value="REQUIRE_CHECKED_IDENTITY" />
+      <xs:enumeration value="FORCE_DIGITAL_SENDING" />
+      <xs:enumeration value="DISABLED" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ComForceSendingMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DEFAULT" />
+      <xs:enumeration value="DIGITAL" />
+      <xs:enumeration value="PAPER" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
