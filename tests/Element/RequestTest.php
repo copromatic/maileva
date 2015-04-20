@@ -2,6 +2,7 @@
 namespace Maileva;
 
 use Maileva\Element\Address\Paper;
+use Maileva\Element\Option;
 use Maileva\Element\Recipient;
 use Maileva\Element\Request;
 use Maileva\Element\Sender;
@@ -42,10 +43,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase{
         $request->setMediaType(Request::PAPER);
         $request->addRecipient($this->getValidRecipient());
         $request->addSender($this->getValidSender());
+        $request->setOptions(new Option());
 
         $request->verify();
-
-        echo $request->generateXml(new \SimpleXMLElement('<xml/>'))->saveXml();exit;
     }
 
     public function getValidSender(){

@@ -13,6 +13,7 @@ class Campaign extends Element {
 
     protected $requests = array();
 
+    /** @var User */
     protected $user = '';
 
     function __construct()
@@ -124,7 +125,7 @@ class Campaign extends Element {
     /**
      * @param array $requests
      */
-    public function addRequest($request)
+    public function addRequest(Request $request)
     {
         $this->requests[] = $request;
     }
@@ -146,7 +147,7 @@ class Campaign extends Element {
     }
 
     /**
-     * @return null
+     * @return User
      */
     public function getUser()
     {

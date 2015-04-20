@@ -5,11 +5,17 @@ use Maileva\Element;
 
 class Document extends Element{
 
+    /** @var string  */
     protected $id = '';
-    protected $shrink = false;
-    protected $content = null;
+    /** @var bool  */
+    protected $shrink = '';
+    /** @var Content */
+    protected $content = '';
+    /** @var int */
     protected $size = '';
+    /** @var Hash */
     protected $hash = '';
+    /** @var array  */
     protected $mergeFields = array();
 
     function __construct()
@@ -23,20 +29,32 @@ class Document extends Element{
             ),
             'shrink' => array(
                 'xml' => self::XML_ELEMENT,
-                'type' => Element::TYPE_BOOLEAN
+                'xml_namespace' => Element::NAMESPACE_COM,
+                'type' => Element::TYPE_BOOLEAN,
+                'compulsory' => false
             ),
             'content' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_ELEMENT,
-                'compulsory' => false
+                'compulsory' => true
             ),
             'size' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_INTEGER,
+                'compulsory' => false
+            ),
+            'hash' => array(
+                'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
+                'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),
             'mergeFields' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
+                'xml_path' => 'MergeFields/MergeField',
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             )
@@ -44,7 +62,7 @@ class Document extends Element{
     }
 
     /**
-     * @return null
+     * @return Content
      */
     public function getContent()
     {
@@ -52,15 +70,15 @@ class Document extends Element{
     }
 
     /**
-     * @param null $content
+     * @param Content $content
      */
-    public function setContent(Content $content)
+    public function setContent($content)
     {
         $this->content = $content;
     }
 
     /**
-     * @return string
+     * @return Hash
      */
     public function getHash()
     {
@@ -68,7 +86,7 @@ class Document extends Element{
     }
 
     /**
-     * @param string $hash
+     * @param Hash $hash
      */
     public function setHash($hash)
     {
@@ -100,9 +118,9 @@ class Document extends Element{
     }
 
     /**
-     * @param array $mergeFields
+     * @param MergeField $mergeFields
      */
-    public function addMergeFields($mergeField)
+    public function addMergeField(MergeField $mergeField)
     {
         $this->mergeFields[] = $mergeField;
     }
@@ -124,7 +142,7 @@ class Document extends Element{
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getSize()
     {
@@ -132,7 +150,7 @@ class Document extends Element{
     }
 
     /**
-     * @param string $size
+     * @param int $size
      */
     public function setSize($size)
     {
@@ -141,7 +159,9 @@ class Document extends Element{
 
     function verifyLogic()
     {
-
+        if(count($this->getMergeFields()) > 40){
+            throw new \Maileva\Exception\Element(get_class($this).' there are too many mergeField in the document');
+        }
     }
 
 

@@ -70,4 +70,21 @@ class UserTest extends \PHPUnit_Framework_TestCase{
 
         $user->verify();
     }
+
+    public static function getValidUser(){
+
+        $user = new User();
+
+        $user->setAuthType(User::AUTHTYPE_PLAINTEXT);
+        $user->setPassword('sdfsd!21dze3!');
+        $user->setLogin('maileva');
+
+        try{
+            $user->verify();
+        }catch(Element $e){
+            throw new Exception('User is not valid');
+        }
+
+        return $user;
+    }
 }

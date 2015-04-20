@@ -18,6 +18,7 @@ class ValueWithOrder extends Element{
             ),
             'value' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_STRING,
                 'max' => 100,
                 'compulsory' => true
@@ -55,6 +56,10 @@ class ValueWithOrder extends Element{
     public function setValue($value)
     {
         $this->value = $value;
+    }
+
+    public function toXmlValue(\DOMElement $parent, $namespace){
+        $parent->nodeValue = $this->getValue();
     }
 
     function verifyLogic()

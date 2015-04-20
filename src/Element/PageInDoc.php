@@ -18,6 +18,7 @@ class PageInDoc extends Element{
             ),
             'pageOptionId' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_STRING,
                 'compulsory' => true
             ),

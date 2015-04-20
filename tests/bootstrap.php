@@ -6,4 +6,5 @@
  * Bootstraper for PHPUnit tests.
  */
 $loader = require_once __DIR__ . '/../vendor/autoload.php';
-$loader->add('Maileva\\', __DIR__);
+$loader->add('Maileva\\', __DIR__.'/Elements/');
+$loader->add('Maileva\\', __DIR__.'/Ftp/');

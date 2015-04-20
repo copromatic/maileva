@@ -5,17 +5,26 @@ use Maileva\Element;
 
 class MergeField extends Element{
 
+    /** @var int  */
     protected $pageNumber = '';
     protected $fontName = '';
+    /** @var int  */
     protected $fontSize = '';
     protected $fontColor = '';
+    /** @var bool */
     protected $fontBold = '';
+    /** @var bool */
     protected $fontItalic = '';
+    /** @var bool */
     protected $fontUnderline = '';
     protected $posUnit = '';
+    /** @var float */
     protected $posX = '';
+    /** @var float */
     protected $posY = '';
+    /** @var ContentMergeField */
     protected $content = '';
+    /** @var int  */
     protected $orientation = '';
     protected $halign = '';
 
@@ -69,69 +78,86 @@ class MergeField extends Element{
         $this->_definition = array(
             'pageNumber' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_INTEGER,
                 'compulsory' => true
             ),
             'fontName' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_CHOICES,
                 'choices' => self::getFonts(),
                 'compulsory' => true
             ),
             'fontSize' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_INTEGER,
+                'max' => 72,
+                'min' => 6,
                 'compulsory' => true
             ),
             'fontColor' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_STRING,
                 'max' => 20,
                 'compulsory' => false
             ),
             'fontBold' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_BOOLEAN,
                 'compulsory' => false
             ),
             'fontItalic' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_BOOLEAN,
                 'compulsory' => false
             ),
             'fontUnderline' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_BOOLEAN,
                 'compulsory' => false
             ),
             'posUnit' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_CHOICES,
                 'choices' => array(self::UNITE_CM),
                 'compulsory' => true
             ),
             'posX' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_FLOAT,
                 'compulsory' => true
             ),
             'posY' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_FLOAT,
                 'compulsory' => true
             ),
             'content' => array(
                 'xml' => self::XML_ELEMENT,
-                'type' => Element::TYPE_STRING,
+                'xml_namespace' => Element::NAMESPACE_COM,
+                'type' => Element::TYPE_ELEMENT,
                 'compulsory' => true
             ),
             'orientation' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_INTEGER,
+                'min' => 0,
+                'max' => 360,
                 'compulsory' => false
             ),
             'halign' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_CHOICES,
                 'choices' => array(self::HALIGN_LEFT, self::HALIGN_CENTER, self::HALIGN_RIGHT),
                 'compulsory' => false
@@ -140,7 +166,7 @@ class MergeField extends Element{
     }
 
     /**
-     * @return string
+     * @return ContentMergeField
      */
     public function getContent()
     {
@@ -148,15 +174,15 @@ class MergeField extends Element{
     }
 
     /**
-     * @param string $content
+     * @param ContentMergeField $content
      */
-    public function setContent($content)
+    public function setContent(ContentMergeField $content)
     {
         $this->content = $content;
     }
 
     /**
-     * @return string
+     * @return boolean
      */
     public function isFontBold()
     {
@@ -164,7 +190,7 @@ class MergeField extends Element{
     }
 
     /**
-     * @param string $fontBold
+     * @param boolean $fontBold
      */
     public function setFontBold($fontBold)
     {
@@ -174,7 +200,7 @@ class MergeField extends Element{
     /**
      * @return string
      */
-    public function isFontColor()
+    public function getFontColor()
     {
         return $this->fontColor;
     }
@@ -188,7 +214,7 @@ class MergeField extends Element{
     }
 
     /**
-     * @return string
+     * @return boolean
      */
     public function isFontItalic()
     {
@@ -196,7 +222,7 @@ class MergeField extends Element{
     }
 
     /**
-     * @param string $fontItalic
+     * @param boolean $fontItalic
      */
     public function setFontItalic($fontItalic)
     {
@@ -206,7 +232,7 @@ class MergeField extends Element{
     /**
      * @return string
      */
-    public function isFontName()
+    public function getFontName()
     {
         return $this->fontName;
     }
@@ -220,7 +246,7 @@ class MergeField extends Element{
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getFontSize()
     {
@@ -228,7 +254,7 @@ class MergeField extends Element{
     }
 
     /**
-     * @param string $fontSize
+     * @param int $fontSize
      */
     public function setFontSize($fontSize)
     {
@@ -236,15 +262,15 @@ class MergeField extends Element{
     }
 
     /**
-     * @return string
+     * @return boolean
      */
-    public function getFontUnderline()
+    public function isFontUnderline()
     {
         return $this->fontUnderline;
     }
 
     /**
-     * @param string $fontUnderline
+     * @param boolean $fontUnderline
      */
     public function setFontUnderline($fontUnderline)
     {
@@ -268,7 +294,7 @@ class MergeField extends Element{
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getOrientation()
     {
@@ -276,7 +302,7 @@ class MergeField extends Element{
     }
 
     /**
-     * @param string $orientation
+     * @param int $orientation
      */
     public function setOrientation($orientation)
     {
@@ -284,7 +310,7 @@ class MergeField extends Element{
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getPageNumber()
     {
@@ -292,7 +318,7 @@ class MergeField extends Element{
     }
 
     /**
-     * @param string $pageNumber
+     * @param int $pageNumber
      */
     public function setPageNumber($pageNumber)
     {
@@ -316,7 +342,7 @@ class MergeField extends Element{
     }
 
     /**
-     * @return string
+     * @return float
      */
     public function getPosX()
     {
@@ -324,7 +350,7 @@ class MergeField extends Element{
     }
 
     /**
-     * @param string $posX
+     * @param float $posX
      */
     public function setPosX($posX)
     {
@@ -332,7 +358,7 @@ class MergeField extends Element{
     }
 
     /**
-     * @return string
+     * @return float
      */
     public function getPosY()
     {
@@ -340,17 +366,18 @@ class MergeField extends Element{
     }
 
     /**
-     * @param string $posY
+     * @param float $posY
      */
     public function setPosY($posY)
     {
         $this->posY = $posY;
     }
 
-
     function verifyLogic()
     {
-        // TODO: Implement verifyLogic() method.
+        if($this->getFontColor() !== '' && !preg_match('/#[0-9A-F]{3,6}/', $this->getFontColor())){
+            throw new \Maileva\Exception\Element(get_class($this).' the font color must be an hexadecimal value');
+        }
     }
 
 }

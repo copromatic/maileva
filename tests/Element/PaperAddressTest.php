@@ -112,7 +112,7 @@ class PaperAddressTest extends \PHPUnit_Framework_TestCase{
         $paperAddress->verify();
     }
 
-    public function validContent(){
+    public static function validContent(){
         return array(
             array(
                 'Company Y',
@@ -125,6 +125,16 @@ class PaperAddressTest extends \PHPUnit_Framework_TestCase{
                 'AU'
             ),
             array(
+                '',
+                'Gaetan Y',
+                '6 rue de Milan',
+                '',
+                '',
+                '75001 Paris',
+                '',
+                ''
+            ),
+            array(
                 'Company Y',
                 '',
                 '6 Park St',
@@ -143,17 +153,33 @@ class PaperAddressTest extends \PHPUnit_Framework_TestCase{
                 '',
                 'Australia',
                 ''
-            ),
-            array(
-                '',
-                'Gaetan Y',
-                '6 rue de Milan',
-                '',
-                '',
-                '75001 Paris',
-                '',
-                ''
             )
         );
+    }
+
+    public static function getValidPaperAddress($version){
+        $addresses = self::validContent();
+        if(!isset($addresses[$version])){
+            throw new Exception('PaperAddress is not valid');
+        }
+        $paperAddress = new Paper();
+
+        $paperAddress->addAddressLine($addresses[$version][0]);
+        $paperAddress->addAddressLine($addresses[$version][1]);
+        $paperAddress->addAddressLine($addresses[$version][2]);
+        $paperAddress->addAddressLine($addresses[$version][3]);
+        $paperAddress->addAddressLine($addresses[$version][4]);
+        $paperAddress->addAddressLine($addresses[$version][5]);
+
+        $paperAddress->setCountry($addresses[$version][6]);
+        $paperAddress->setCountryCode($addresses[$version][7]);
+
+        try{
+            $paperAddress->verify();
+        }catch(Element $e){
+            throw new Exception('PaperAddress is not valid');
+        }
+
+        return $paperAddress;
     }
 }

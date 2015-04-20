@@ -5,8 +5,11 @@ use Maileva\Element;
 
 class Paper extends Element{
 
+    /** @var bool */
     protected $printDuplex = '';
+    /** @var Element\Option\Page\Paper */
     protected $pageOption = '';
+    /** @var bool */
     protected $staple = '';
 
     function __construct()
@@ -14,16 +17,19 @@ class Paper extends Element{
         $this->_definition = array(
             'printDuplex' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_BOOLEAN,
                 'compulsory' => false
             ),
             'pageOption' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),
             'staple' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_BOOLEAN,
                 'compulsory' => false
             )
@@ -31,7 +37,7 @@ class Paper extends Element{
     }
 
     /**
-     * @return string
+     * @return Element\Option\Page\Paper
      */
     public function getPageOption()
     {
@@ -39,7 +45,7 @@ class Paper extends Element{
     }
 
     /**
-     * @param string $pageOption
+     * @param Element\Option\Page\Paper $pageOption
      */
     public function setPageOption(Element\Option\Page\Paper $pageOption)
     {
@@ -47,7 +53,7 @@ class Paper extends Element{
     }
 
     /**
-     * @return string
+     * @return boolean
      */
     public function isPrintDuplex()
     {
@@ -55,7 +61,7 @@ class Paper extends Element{
     }
 
     /**
-     * @param string $printDuplex
+     * @param boolean $printDuplex
      */
     public function setPrintDuplex($printDuplex)
     {
@@ -63,7 +69,7 @@ class Paper extends Element{
     }
 
     /**
-     * @return string
+     * @return boolean
      */
     public function isStaple()
     {
@@ -71,17 +77,18 @@ class Paper extends Element{
     }
 
     /**
-     * @param string $staple
+     * @param boolean $staple
      */
     public function setStaple($staple)
     {
         $this->staple = $staple;
     }
 
-
     function verifyLogic()
     {
-        // TODO: Implement verifyLogic() method.
+        if($this->getPageOption() === '' && $this->isStaple() === '' && $this->isPrintDuplex() === ''){
+            throw new \Maileva\Exception\Element(get_class($this).' no option specified');
+        }
     }
 
 

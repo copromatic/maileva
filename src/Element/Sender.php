@@ -5,7 +5,9 @@ use Maileva\Element;
 
 class Sender extends Element{
 
+    /** @var string  */
     protected $id = '';
+    /** @var Element\Address\Paper */
     protected $paperAddress = '';
     protected $smsAddress = '';
 
@@ -20,11 +22,13 @@ class Sender extends Element{
             ),
             'paperAddress' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),
             'smsAddress' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             )
@@ -48,7 +52,7 @@ class Sender extends Element{
     }
 
     /**
-     * @return null
+     * @return Element\Address\Paper
      */
     public function getPaperAddress()
     {
@@ -56,7 +60,7 @@ class Sender extends Element{
     }
 
     /**
-     * @param null $paperAddress
+     * @param Element\Address\Paper $paperAddress
      */
     public function setPaperAddress(Element\Address\Paper $paperAddress)
     {
@@ -81,6 +85,7 @@ class Sender extends Element{
 
     function verifyLogic()
     {
+        //Check there is at least 1 address
         if($this->getSmsAddress() === '' && $this->getPaperAddress() === ''){
             throw new \Maileva\Exception\Element(get_class($this).' no address specified');
         }

@@ -5,8 +5,11 @@ namespace Maileva\Element;
 use Maileva\Element;
 
 class User extends Element{
+    /** @var  string */
     protected $authType;
+    /** @var  string */
     protected $login;
+    /** @var  string */
     protected $password;
 
     const AUTHTYPE_PLAINTEXT = 'PLAINTEXT';
@@ -36,7 +39,7 @@ class User extends Element{
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAuthType()
     {
@@ -44,7 +47,7 @@ class User extends Element{
     }
 
     /**
-     * @param mixed $authType
+     * @param string $authType
      */
     public function setAuthType($authType)
     {
@@ -52,7 +55,7 @@ class User extends Element{
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getLogin()
     {
@@ -60,7 +63,7 @@ class User extends Element{
     }
 
     /**
-     * @param mixed $login
+     * @param string $login
      */
     public function setLogin($login)
     {
@@ -68,7 +71,7 @@ class User extends Element{
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getPassword()
     {
@@ -76,7 +79,7 @@ class User extends Element{
     }
 
     /**
-     * @param mixed $password
+     * @param string $password
      */
     public function setPassword($password)
     {

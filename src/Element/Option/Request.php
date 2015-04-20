@@ -14,16 +14,19 @@ class Request extends Element{
         $this->_definition = array(
             'paperOption' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),
             'digitalOption' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),
             'smsOption' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             )
@@ -80,7 +83,9 @@ class Request extends Element{
 
     function verifyLogic()
     {
-        // TODO: Implement verifyLogic() method.
+        if($this->getDigitalOption() === '' && $this->getPaperOption() === '' && $this->getSmsOption() === ''){
+            throw new \Maileva\Exception\Element(get_class($this).' no option specified');
+        }
     }
 
 

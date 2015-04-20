@@ -61,9 +61,9 @@ class Fold extends Element{
     }
 
     /**
-     * @param array $documents
+     * @param DocInFold $documents
      */
-    public function addDocument($document)
+    public function addDocument(DocInFold $document)
     {
         $this->documents[] = $document;
     }
@@ -93,9 +93,9 @@ class Fold extends Element{
     }
 
     /**
-     * @param array $mergeValues
+     * @param MergeValue $mergeValue
      */
-    public function addMergeValue($mergeValue)
+    public function addMergeValue(MergeValue $mergeValue)
     {
         $this->mergeValues[] = $mergeValue;
     }

@@ -6,6 +6,7 @@ use Maileva\Element;
 class Page extends Element{
 
     protected $id = '';
+    /** @var Element\Option\Page\Paper */
     protected $paperOption = '';
 
     function __construct()
@@ -18,6 +19,7 @@ class Page extends Element{
             ),
             'paperOption' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => true
             )
@@ -41,7 +43,7 @@ class Page extends Element{
     }
 
     /**
-     * @return string
+     * @return Element\Option\Page\Paper
      */
     public function getPaperOption()
     {
@@ -49,7 +51,7 @@ class Page extends Element{
     }
 
     /**
-     * @param string $paperOption
+     * @param Element\Option\Page\Paper $paperOption
      */
     public function setPaperOption(Element\Option\Page\Paper $paperOption)
     {

@@ -11,6 +11,7 @@ use Maileva\Element\Option;
 use Maileva\Element\PageInDoc;
 use Maileva\Element\Recipient;
 use Maileva\Element\Request;
+use Maileva\Element\Stapling;
 use Maileva\Element\User;
 
 class CampaignTest extends \PHPUnit_Framework_TestCase{
@@ -29,8 +30,6 @@ class CampaignTest extends \PHPUnit_Framework_TestCase{
         $campaign->addRequest($this->getValidRequest());
 
         $campaign->verify();
-
-        echo $campaign->generateXml(new \SimpleXMLElement('<Campaign></Campaign>'))->saveXML();exit;
     }
 
     protected function getValidUser(){
@@ -51,40 +50,14 @@ class CampaignTest extends \PHPUnit_Framework_TestCase{
 
 
         //RECIPIENTS
-        $paperAddress = new Paper();
-
-        #1
-        $recipient1 = new Recipient();
-        $recipient1->setTrackId('1234');
-        $recipient1->setId(1);
-
-        $paperAddress->setAddress('Copromatic', '', '', '8 rue Jean Moulin', '', '69001 Lyon');
-        $recipient1->setPaperAddress($paperAddress);
-
-        #2
-        $recipient2 = new Recipient();
-        $recipient2->setTrackId('1234');
-        $recipient2->setId(2);
-
-        $paperAddress->setAddress('Copromatic', 'Gaetan Hautecoeur', '', '8 rue Jean Moulin', '', '69001 Lyon');
-        $recipient2->setPaperAddress($paperAddress);
-
+        $recipient1 = RecipientTest::getValidRecipient(0);
+        $recipient2 = RecipientTest::getValidRecipient(1);
         $request->addRecipient($recipient1);
         $request->addRecipient($recipient2);
 
         //DOCUMENTS
-        $document1 = new Document();
-        $document1->setId(1);
-
-        $content = new Content();
-        $content->setUri('b000001000.pdf');
-
-        $document1->setContent($content);
-
-        $document2 = new Document();
-        $document2->setId(2);
-        $document2->setContent($content);
-
+        $document1 = DocumentTest::getValidDocument(0);
+        $document2 = DocumentTest::getValidDocument(1);
         $request->addDocumentData($document1);
         $request->addDocumentData($document2);
 
@@ -97,10 +70,16 @@ class CampaignTest extends \PHPUnit_Framework_TestCase{
         #Doc
         $docInFold = new DocInFold();
         $docInFold->setDocumentId($document1->getId());
+        $docInFold->setFirstPage(2);
         $pageInDoc = new PageInDoc();
-        $pageInDoc->setNumber(1);
+        $pageInDoc->setNumber(2);
         $pageInDoc->setPageOptionId('134');
         $docInFold->addPage($pageInDoc);
+
+        $stapling = new Stapling();
+        $stapling->setFirstPageOffset(1);
+        $stapling->setLastPageOffset(3);
+        $docInFold->addStaplingDetails($stapling);
 
         $fold->addDocument($docInFold);
 
@@ -150,8 +129,6 @@ class CampaignTest extends \PHPUnit_Framework_TestCase{
         $option->addPageOptions($optionPage);
 
         $request->setOptions($option);
-
-
 
         return $request;
     }

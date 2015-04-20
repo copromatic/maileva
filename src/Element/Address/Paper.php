@@ -26,6 +26,7 @@ class Paper extends Element{
             ),
             'addressLines' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_STRING,
                 'max' => 38,
                 'compulsory' => true
@@ -36,6 +37,11 @@ class Paper extends Element{
     public function setAddress($a1, $a2, $a3, $a4, $a5, $a6){
         $this->addressLines = array($a1, $a2, $a3, $a4, $a5, $a6);
     }
+
+    public function setFrenchAddress($a1, $a2, $a3, $a4, $a5, $code_postal, $ville){
+        $this->addressLines = array($a1, $a2, $a3, $a4, $a5, $code_postal.' '.$ville);
+    }
+
     /**
      * @return array
      */
@@ -115,9 +121,13 @@ class Paper extends Element{
         }
     }
 
-    function toXmlAddressLines($parent){
+    function toXmlAddressLines($parent, $namespace){
+        $node = new \DOMElement('AddressLines', null, $namespace);
+        $parent->appendChild($node);
+        $parent = $node;
         foreach($this->getAddressLines() as $i => $line){
-            $parent->addChild('AddressLine'.($i+1), $line);
+            $node = new \DOMElement('AddressLine'.($i+1), $line, Element::NAMESPACE_COM);
+            $parent->appendChild($node);
         }
     }
 }

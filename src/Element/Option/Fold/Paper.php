@@ -1,34 +1,63 @@
 <?php
-namespace Maileva\Element\Option;
+namespace Maileva\Element\Option\Fold;
 
 use Maileva\Element;
 
-class Fold extends Element{
+class Paper extends Element{
 
     const ENVELOPETYPE_C4 = 'C4';
     const ENVELOPETYPE_C6 = 'C6';
 
     const ENVELOPEWINDOWTYPE_DBL = 'DBL';
-    const ENVELOPEWINDOWTYPE_SMPL = 'DBL';
+    const ENVELOPEWINDOWTYPE_SMPL = 'SMPL';
 
     const POSTAGECLASS_STANDARD = 'STANDARD';
     const POSTAGECLASS_SLOW = 'SLOW';
     const POSTAGECLASS_RECOMMANDE = 'RECOMMANDE';
     const POSTAGECLASS_RECOMMANDE_AR = 'RECOMMANDE_AR';
+    const POSTAGECLASS_SLOW_NB = 'SLOW_NB';
+    const POSTAGECLASS_DESTINEO_EL_STD_S1 = 'DESTINEO_EL_STD_S1';
+    const POSTAGECLASS_DESTINEO_EL_STD_S2 = 'DESTINEO_EL_STD_S2';
+    const POSTAGECLASS_DESTINEO_EL_MECA_S1 = 'DESTINEO_EL_MECA_S1';
+    const POSTAGECLASS_DESTINEO_EL_MECA_S2 = 'DESTINEO_EL_MECA_S2';
     const POSTAGECLASS_LETTRE_GRAND_COMPTE = 'LETTRE_GRAND_COMPTE';
     const POSTAGECLASS_ECOPLI_GRAND_COMPTE = 'ECOPLI_GRAND_COMPTE';
-    const POSTAGECLASS_ECOPLI_LETTRE_VERTE = 'LETTRE_VERTE';
+    const POSTAGECLASS_LETTRE_VERTE = 'LETTRE_VERTE';
+    const POSTAGECLASS_LETTRE_VERTE_NB = 'LETTRE_VERTE_NB';
+    const POSTAGECLASS_LRE = 'LRE';
+    const POSTAGECLASS_LRE_AR = 'LRE_AR';
+    const POSTAGECLASS_LRE_TE = 'LRE_TE';
+    const POSTAGECLASS_LRE_TE_AR = 'LRE_TE_AR';
+
+    const SENDINGMODE_DEFAULT = 'DEFAULT';
+    const SENDINGMODE_DIGITAL = 'DIGITAL';
+    const SENDINGMODE_PAPER = 'PAPER';
+
+    const SWITCHINGPOLICY_AUTOMATIC = 'AUTOMATIC';
+    const SWITCHINGPOLICY_REQUIRE_CHECKED_IDENTITY = 'REQUIRE_CHECKED_IDENTITY';
+    const SWITCHINGPOLICY_FORCE_DIGITAL_SENDING = 'FORCE_DIGITAL_SENDING';
+    const SWITCHINGPOLICY_DISABLED = 'DISABLED';
 
     protected $envelopeType = '';
     protected $envelopeWindowType = '';
     protected $postageClass = '';
+    /** @var bool  */
     protected $foldPrintColor = '';
+    /** @var bool  */
     protected $printSenderAddress = '';
+    /** @var bool  */
     protected $printRecipTrackId = '';
+    /** @var bool  */
     protected $treatUndeliveredMail = '';
+    /** @var bool  */
+    protected $treatAR = '';
+    /** @var DigitalArchiving */
     protected $digitalArchiving = '';
+    /** @var bool  */
     protected $useFlyLeaf = '';
     protected $logoRef = '';
+    protected $returnEnvelopeRef = '';
+    /** @var Element\Option\Document\Paper */
     protected $documentOption = '';
     protected $depositTitle = '';
     protected $depositDescription = '';
@@ -38,73 +67,122 @@ class Fold extends Element{
         $this->_definition = array(
             'envelopeType' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_CHOICES,
                 'choices' => array(self::ENVELOPETYPE_C4, self::ENVELOPETYPE_C6),
                 'compulsory' => false
             ),
             'envelopeWindowType' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_CHOICES,
                 'choices' => array(self::ENVELOPEWINDOWTYPE_DBL, self::ENVELOPEWINDOWTYPE_SMPL),
                 'compulsory' => false
             ),
             'postageClass' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_CHOICES,
-                'choices' => array(self::POSTAGECLASS_STANDARD, self::POSTAGECLASS_SLOW, self::POSTAGECLASS_RECOMMANDE, self::POSTAGECLASS_RECOMMANDE_AR, self::POSTAGECLASS_LETTRE_GRAND_COMPTE, self::POSTAGECLASS_ECOPLI_GRAND_COMPTE, self::POSTAGECLASS_ECOPLI_LETTRE_VERTE),
+                'choices' => array(
+                    self::POSTAGECLASS_STANDARD,
+                    self::POSTAGECLASS_SLOW,
+                    self::POSTAGECLASS_RECOMMANDE,
+                    self::POSTAGECLASS_RECOMMANDE_AR,
+                    self::POSTAGECLASS_SLOW_NB,
+                    self::POSTAGECLASS_DESTINEO_EL_MECA_S1,
+                    self::POSTAGECLASS_DESTINEO_EL_MECA_S2,
+                    self::POSTAGECLASS_DESTINEO_EL_STD_S1,
+                    self::POSTAGECLASS_DESTINEO_EL_STD_S2,
+                    self::POSTAGECLASS_LETTRE_GRAND_COMPTE,
+                    self::POSTAGECLASS_ECOPLI_GRAND_COMPTE,
+                    self::POSTAGECLASS_LETTRE_VERTE,
+                    self::POSTAGECLASS_LETTRE_VERTE_NB,
+                    self::POSTAGECLASS_LRE,
+                    self::POSTAGECLASS_LRE_AR,
+                    self::POSTAGECLASS_LRE_TE,
+                    self::POSTAGECLASS_LRE_TE_AR
+                ),
                 'compulsory' => false
             ),
             'foldPrintColor' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_BOOLEAN,
                 'compulsory' => false
             ),
             'printSenderAddress' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_BOOLEAN,
                 'compulsory' => false
             ),
             'printRecipTrackId' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_BOOLEAN,
                 'compulsory' => false
             ),
             'treatUndeliveredMail' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
+                'type' => Element::TYPE_BOOLEAN,
+                'compulsory' => false
+            ),
+            'treatAR' => array(
+                'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_BOOLEAN,
                 'compulsory' => false
             ),
             'digitalArchiving' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),
             'useFlyLeaf' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_BOOLEAN,
                 'compulsory' => false
             ),
             'logoRef' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_STRING,
                 'max' => 45,
                 'compulsory' => false
             ),
+            'returnEnvelopeRef' => array(
+                'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
+                'type' => Element::TYPE_STRING,
+                'max' => 8,
+                'compulsory' => false
+            ),
             'documentOption' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),
-            'depositTitle' => array(
+            'switchingPolicy' => array(
                 'xml' => self::XML_ELEMENT,
-                'type' => Element::TYPE_STRING,
-                'max' => 50,
-                'compulsory' => true
+                'xml_namespace' => Element::NAMESPACE_SPEC,
+                'type' => Element::TYPE_CHOICES,
+                'choices' => array(
+                    self::SWITCHINGPOLICY_AUTOMATIC,
+                    self::SWITCHINGPOLICY_DISABLED,
+                    self::SWITCHINGPOLICY_FORCE_DIGITAL_SENDING,
+                    self::SWITCHINGPOLICY_REQUIRE_CHECKED_IDENTITY
+                ),
+                'compulsory' => false
             ),
-            'depositDescription' => array(
+            'forceSendingMode' => array(
                 'xml' => self::XML_ELEMENT,
-                'type' => Element::TYPE_STRING,
-                'max' => 64,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
+                'type' => Element::TYPE_CHOICES,
+                'choices' => array(self::SENDINGMODE_DEFAULT, self::SENDINGMODE_DIGITAL, self::SENDINGMODE_PAPER ),
                 'compulsory' => false
             )
         );
@@ -143,7 +221,7 @@ class Fold extends Element{
     }
 
     /**
-     * @return string
+     * @return DigitalArchiving
      */
     public function getDigitalArchiving()
     {
@@ -151,15 +229,15 @@ class Fold extends Element{
     }
 
     /**
-     * @param string $digitalArchiving
+     * @param DigitalArchiving $digitalArchiving
      */
-    public function setDigitalArchiving($digitalArchiving)
+    public function setDigitalArchiving(DigitalArchiving $digitalArchiving)
     {
         $this->digitalArchiving = $digitalArchiving;
     }
 
     /**
-     * @return string
+     * @return Element\Option\Document\Paper
      */
     public function getDocumentOption()
     {
@@ -167,7 +245,7 @@ class Fold extends Element{
     }
 
     /**
-     * @param string $documentOption
+     * @param Element\Option\Document\Paper $documentOption
      */
     public function setDocumentOption(Element\Option\Document\Paper $documentOption)
     {
@@ -207,7 +285,7 @@ class Fold extends Element{
     }
 
     /**
-     * @return string
+     * @return boolean
      */
     public function isFoldPrintColor()
     {
@@ -215,7 +293,7 @@ class Fold extends Element{
     }
 
     /**
-     * @param string $foldPrintColor
+     * @param boolean $foldPrintColor
      */
     public function setFoldPrintColor($foldPrintColor)
     {
@@ -255,7 +333,7 @@ class Fold extends Element{
     }
 
     /**
-     * @return string
+     * @return boolean
      */
     public function isPrintRecipTrackId()
     {
@@ -263,7 +341,7 @@ class Fold extends Element{
     }
 
     /**
-     * @param string $printRecipTrackId
+     * @param boolean $printRecipTrackId
      */
     public function setPrintRecipTrackId($printRecipTrackId)
     {
@@ -271,7 +349,7 @@ class Fold extends Element{
     }
 
     /**
-     * @return string
+     * @return boolean
      */
     public function isPrintSenderAddress()
     {
@@ -279,7 +357,7 @@ class Fold extends Element{
     }
 
     /**
-     * @param string $printSenderAddress
+     * @param boolean $printSenderAddress
      */
     public function setPrintSenderAddress($printSenderAddress)
     {
@@ -289,13 +367,45 @@ class Fold extends Element{
     /**
      * @return string
      */
+    public function getReturnEnvelopeRef()
+    {
+        return $this->returnEnvelopeRef;
+    }
+
+    /**
+     * @param string $returnEnvelopeRef
+     */
+    public function setReturnEnvelopeRef($returnEnvelopeRef)
+    {
+        $this->returnEnvelopeRef = $returnEnvelopeRef;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isTreatAR()
+    {
+        return $this->treatAR;
+    }
+
+    /**
+     * @param boolean $treatAR
+     */
+    public function setTreatAR($treatAR)
+    {
+        $this->treatAR = $treatAR;
+    }
+
+    /**
+     * @return boolean
+     */
     public function isTreatUndeliveredMail()
     {
         return $this->treatUndeliveredMail;
     }
 
     /**
-     * @param string $treatUndeliveredMail
+     * @param boolean $treatUndeliveredMail
      */
     public function setTreatUndeliveredMail($treatUndeliveredMail)
     {
@@ -303,7 +413,7 @@ class Fold extends Element{
     }
 
     /**
-     * @return string
+     * @return boolean
      */
     public function isUseFlyLeaf()
     {
@@ -311,13 +421,12 @@ class Fold extends Element{
     }
 
     /**
-     * @param string $useFlyLeaf
+     * @param boolean $useFlyLeaf
      */
     public function setUseFlyLeaf($useFlyLeaf)
     {
         $this->useFlyLeaf = $useFlyLeaf;
     }
-
 
 
     function verifyLogic()

@@ -5,14 +5,19 @@ use Maileva\Element;
 
 class Recipient extends Element{
 
+    /** @var string  */
     protected $id = '';
+    /** @var string  */
     protected $trackId = '';
+    /** @var Element\Address\Paper */
     protected $paperAddress = '';
     protected $smsAddress = '';
     protected $emailAddress = '';
     protected $digitalAddress = '';
+    /** @var string  */
     protected $category = '';
-    protected $hasDigitalId = false;
+    /** @var bool  */
+    protected $hasDigitalId = '';
 
     const UNKNOWN = 'UNKNOWN';
     const INDIVIDUAL = 'INDIVIDUAL';
@@ -34,32 +39,38 @@ class Recipient extends Element{
             ),
             'paperAddress' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),
             'smsAddress' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),
             'emailAddress' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),
             'digitalAddress' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),
             'category' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_CHOICES,
                 'choices' => array(self::UNKNOWN, self::PROFESSIONAL, self::INDIVIDUAL),
                 'compulsory' => false
             ),
             'hasDigitalId' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_BOOLEAN,
                 'compulsory' => false
             ),
@@ -83,7 +94,7 @@ class Recipient extends Element{
     }
 
     /**
-     * @return null
+     * @return string
      */
     public function getDigitalAddress()
     {
@@ -91,7 +102,7 @@ class Recipient extends Element{
     }
 
     /**
-     * @param null $digitalAddress
+     * @param string $digitalAddress
      */
     public function setDigitalAddress($digitalAddress)
     {
@@ -99,7 +110,7 @@ class Recipient extends Element{
     }
 
     /**
-     * @return null
+     * @return string
      */
     public function getEmailAddress()
     {
@@ -107,7 +118,7 @@ class Recipient extends Element{
     }
 
     /**
-     * @param null $emailAddress
+     * @param string $emailAddress
      */
     public function setEmailAddress($emailAddress)
     {
@@ -147,7 +158,7 @@ class Recipient extends Element{
     }
 
     /**
-     * @return null
+     * @return Address\Paper
      */
     public function getPaperAddress()
     {
@@ -155,7 +166,7 @@ class Recipient extends Element{
     }
 
     /**
-     * @param null $paperAddress
+     * @param Address\Paper $paperAddress
      */
     public function setPaperAddress(Element\Address\Paper $paperAddress)
     {
@@ -163,7 +174,7 @@ class Recipient extends Element{
     }
 
     /**
-     * @return null
+     * @return string
      */
     public function getSmsAddress()
     {
@@ -171,7 +182,7 @@ class Recipient extends Element{
     }
 
     /**
-     * @param null $smsAddress
+     * @param string $smsAddress
      */
     public function setSmsAddress($smsAddress)
     {

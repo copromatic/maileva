@@ -21,12 +21,11 @@ class ContentTest extends \PHPUnit_Framework_TestCase{
     /**
      * @expectedException \Maileva\Exception\Element
      */
-    public function testNoUri()
+    public function testInvalidExtension()
     {
         $content = new Content();
 
-        $content->setValue('TEST RETST');
-        $content->setEncoding(Content::UTF_8);
+        $content->setUri('elo.pdfx');
 
         $content->verify();
     }
@@ -36,8 +35,6 @@ class ContentTest extends \PHPUnit_Framework_TestCase{
         $content = new Content();
 
         $content->setUri('elo.pdf');
-        $content->setValue('TEST RETST');
-        $content->setEncoding(Content::UTF_8);
 
         $content->verify();
     }

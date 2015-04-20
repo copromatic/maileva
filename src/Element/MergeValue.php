@@ -5,27 +5,31 @@ use Maileva\Element;
 
 class MergeValue extends Element{
 
+    /** @var ValueWithRef */
     protected $valueWithRef = '';
+    /** @var ValueWithOrder */
     protected $valueWithOrder = '';
 
     function __construct()
     {
         $this->_definition = array(
-            'valueWithRef ' => array(
+            'valueWithRef' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_ELEMENT,
-                'compulsory' => true
+                'compulsory' => false
             ),
             'valueWithOrder' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_ELEMENT,
-                'compulsory' => true
+                'compulsory' => false
             )
         );
     }
 
     /**
-     * @return string
+     * @return ValueWithOrder
      */
     public function getValueWithOrder()
     {
@@ -33,7 +37,7 @@ class MergeValue extends Element{
     }
 
     /**
-     * @param string $valueWithOrder
+     * @param ValueWithOrder $valueWithOrder
      */
     public function setValueWithOrder(ValueWithOrder $valueWithOrder)
     {
@@ -41,7 +45,7 @@ class MergeValue extends Element{
     }
 
     /**
-     * @return string
+     * @return ValueWithRef
      */
     public function getValueWithRef()
     {
@@ -49,7 +53,7 @@ class MergeValue extends Element{
     }
 
     /**
-     * @param string $valueWithRef
+     * @param ValueWithRef $valueWithRef
      */
     public function setValueWithRef(ValueWithRef $valueWithRef)
     {
@@ -59,7 +63,12 @@ class MergeValue extends Element{
 
     function verifyLogic()
     {
-        // TODO: Implement verifyLogic() method.
+        if($this->getValueWithOrder() === '' && $this->getValueWithRef() === ''){
+            throw new \Maileva\Exception\Element(get_class($this).' no value specified');
+        }
+        if(!($this->getValueWithOrder() !== '' xor $this->getValueWithRef() !== '')){
+            throw new \Maileva\Exception\Element(get_class($this).' can\'t specified two types of value');
+        }
     }
 
 }

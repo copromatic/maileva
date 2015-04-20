@@ -15,11 +15,16 @@ abstract class Element {
     const XML_ATTRIBUTE = 'attribute';
     const XML_ELEMENT = 'element';
 
+    const NAMESPACE_PJS = 'http://www.maileva.fr/MailevaPJSSchema';
+    const NAMESPACE_SPEC = 'http://www.maileva.fr/MailevaSpecificSchema';
+    const NAMESPACE_COM = 'http://www.maileva.fr/CommonSchema';
+    const NAMESPACE_XSI = 'http://www.w3.org/2001/XMLSchema-instance';
+
     protected $_definition = array();
 
     abstract function verifyLogic();
 
-    public function generateXml(\SimpleXMLElement $xml){
+    public function generateXml(\DOMElement $xml){
         $elements = array();
         foreach($this->_definition as $varName => $definition){
             if(!isset($this->_definition[$varName]['xml'])){
@@ -30,7 +35,7 @@ abstract class Element {
             }
             switch($this->_definition[$varName]['xml']){
                 case Element::XML_ATTRIBUTE:
-                    $xml->addAttribute(ucfirst($varName), $this->$varName);
+                    $xml->setAttribute(ucfirst($varName), $this->$varName);
                     break;
                 case Element::XML_ELEMENT:
                     if(!is_array($this->$varName)){
@@ -38,8 +43,17 @@ abstract class Element {
                     }else{
                         $values = $this->$varName;
                     }
+                    if(count($values) == 0){
+                        continue;
+                    }
                     $xmlName = ucfirst($varName);
                     $xmlToUse = $xml;
+
+                    $xmlNamespace = self::NAMESPACE_PJS;
+                    if(isset($this->_definition[$varName]['xml_namespace'])){
+                        $xmlNamespace = $this->_definition[$varName]['xml_namespace'];
+                    }
+
                     if(isset($this->_definition[$varName]['xml_path'])){
                         $path = explode('/', $this->_definition[$varName]['xml_path']);
                         foreach($path as $i => $part){
@@ -47,26 +61,31 @@ abstract class Element {
                                 $xmlName = $part;
                                 break;
                             }
-                            $xmlToUse = $xmlToUse->addChild($part);
+                            $node = new \DOMElement($part, null, $xmlNamespace);
+                            $xmlToUse->appendChild($node);
+
+                            $xmlToUse = $node;
                         }
                     }
                     foreach($values as $value){
                         if($this->_definition[$varName]['type'] == Element::TYPE_DATE){
-                            /** @var \DateTime $value */
-                            $xmlToUse->addChild($xmlName, $value->format($this->_definition[$varName]['format']));
+                            $node = new \DOMElement($xmlName, $value->format($this->_definition[$varName]['format']), $xmlNamespace);
+                            $xmlToUse->appendChild($node);
                         }elseif($this->_definition[$varName]['type'] == Element::TYPE_ELEMENT){
-                            $child = $xmlToUse->addChild($xmlName);
-                            $value->generateXml($child);
+                            $node = new \DOMElement($xmlName, null, $xmlNamespace);
+                            $xmlToUse->appendChild($node);
+                            $value->generateXml($node);
                         }else{
                             $method = 'toXml'.ucfirst($varName);
                             if(method_exists($this, $method)){
-                                $this->$method($xmlToUse->addChild($xmlName));
+                                $this->$method($xmlToUse, $xmlNamespace);
                                 break;
                             }else{
                                 if(is_bool($value) && $value === false){
                                     continue;
                                 }
-                                $xmlToUse->addChild($xmlName, ($value === true)?null:$value);
+                                $node = new \DOMElement($xmlName, ($value === true)?null:$value, $xmlNamespace);
+                                $xmlToUse->appendChild($node);
                             }
                         }
                     }
@@ -96,6 +115,12 @@ abstract class Element {
             $max = 0;
             if(isset($this->_definition[$varName]['max'])){
                 $max = $this->_definition[$varName]['max'];
+            }
+
+            //TAILLE MINIMALE
+            $min = 0;
+            if(isset($this->_definition[$varName]['min'])){
+                $min = $this->_definition[$varName]['min'];
             }
 
             //VERIFICATION EN FONCTION DU TYPE
@@ -131,6 +156,9 @@ abstract class Element {
                     if($max > 0 && $varValue > $max){
                         throw new \Maileva\Exception\Element(get_class($this).':'.$varName.' is too big.');
                     }
+                    if($min > 0 && $varValue < $min){
+                        throw new \Maileva\Exception\Element(get_class($this).':'.$varName.' is too small.');
+                    }
                     break;
                 case self::TYPE_INTEGER:
                     if($varValue != '' && (!is_numeric($varValue) || intval($varValue)+1 != intval($varValue+1))){
@@ -138,6 +166,9 @@ abstract class Element {
                     }
                     if($varValue != '' && ($max > 0 && $varValue > $max)){
                         throw new \Maileva\Exception\Element(get_class($this).':'.$varName.' is too big.');
+                    }
+                    if($min > 0 && $varValue < $min){
+                        throw new \Maileva\Exception\Element(get_class($this).':'.$varName.' is too small.');
                     }
                     break;
                 case self::TYPE_STRING:
@@ -149,6 +180,9 @@ abstract class Element {
                     foreach($varValues as $value){
                         if($max > 0 && strlen($value) > $max){
                             throw new \Maileva\Exception\Element(get_class($this).':'.$varName.' is too long.');
+                        }
+                        if($min > 0 && strlen($value) < $min){
+                            throw new \Maileva\Exception\Element(get_class($this).':'.$varName.' is too small.');
                         }
                     }
                     break;

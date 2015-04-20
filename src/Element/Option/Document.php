@@ -6,6 +6,8 @@ use Maileva\Element;
 class Document extends Element{
 
     protected $id = '';
+
+    /** @var Element\Option\Document\Paper */
     protected $paperOption = '';
 
     function __construct()
@@ -18,10 +20,27 @@ class Document extends Element{
             ),
             'paperOption' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => true
             )
         );
+    }
+
+    /**
+     * @return Document\Paper
+     */
+    public function getPaperOption()
+    {
+        return $this->paperOption;
+    }
+
+    /**
+     * @param Document\Paper $paperOption
+     */
+    public function setPaperOption(Document\Paper $paperOption)
+    {
+        $this->paperOption = $paperOption;
     }
 
     /**
@@ -38,22 +57,6 @@ class Document extends Element{
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPaperOption()
-    {
-        return $this->paperOption;
-    }
-
-    /**
-     * @param string $paperOption
-     */
-    public function setPaperOption(Element\Option\Document\Paper $paperOption)
-    {
-        $this->paperOption = $paperOption;
     }
 
     function verifyLogic()

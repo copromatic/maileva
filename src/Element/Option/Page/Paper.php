@@ -13,11 +13,13 @@ class Paper extends Element{
         $this->_definition = array(
             'backgroundId' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_STRING,
                 'compulsory' => false
             ),
             'insertPageId' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             )
@@ -58,7 +60,9 @@ class Paper extends Element{
 
     function verifyLogic()
     {
-        // TODO: Implement verifyLogic() method.
+        if($this->getInsertPageId() === '' && $this->getBackgroundId() === ''){
+            throw new \Maileva\Exception\Element(get_class($this).' no parameter specified');
+        }
     }
 
 

@@ -17,18 +17,21 @@ class Content extends Element{
         $this->_definition = array(
             'uri' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_STRING,
                 'max' => 255,
-                'compulsory' => true
+                'compulsory' => false
             ),
             'value' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_STRING,
                 'max' => 255,
                 'compulsory' => false
             ),
             'encoding' => array(
                 'xml' => self::XML_ATTRIBUTE,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_CHOICES,
                 'choices' => array(self::ISO_8859_1, self::UTF_8),
                 'compulsory' => false
@@ -86,8 +89,16 @@ class Content extends Element{
 
     function verifyLogic()
     {
-        // TODO: Implement verifyLogic() method.
+        if($this->getUri() !== ''){
+            $allowed = self::getAllowedExtension();
+            $extension = substr(strrchr($this->getUri(), "."), 1);
+            if(!in_array($extension, $allowed)){
+                throw new \Maileva\Exception\Element(get_class($this).' extension not allowed: '.$extension);
+            }
+        }
     }
 
-
+    public static function getAllowedExtension(){
+        return array('pdf', 'xlsx', 'doc', 'docx', 'rtf', 'txt', 'xls' );
+    }
 }

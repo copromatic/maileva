@@ -47,11 +47,13 @@ class Request extends Element{
             ),
             'senders' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_path' => 'Senders/Sender',
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),
             'documentData' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_path' => 'DocumentData/Documents/Document',
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),

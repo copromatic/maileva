@@ -6,7 +6,9 @@ use Maileva\Element;
 class DocInFold extends Element{
 
     protected $documentId = '';
+    /** @var int */
     protected $firstPage = '';
+    /** @var int */
     protected $lastPage = '';
     protected $pages = array();
     protected $documentOptionId = '';
@@ -18,29 +20,33 @@ class DocInFold extends Element{
             'documentId' => array(
                 'xml' => self::XML_ATTRIBUTE,
                 'type' => Element::TYPE_STRING,
-                'compulsory' => false
+                'compulsory' => true
             ),
             'firstPage' => array(
-                'xml' => self::XML_ELEMENT,
+                'xml' => self::XML_ATTRIBUTE,
                 'type' => Element::TYPE_INTEGER
             ),
             'lastPage' => array(
-                'xml' => self::XML_ELEMENT,
+                'xml' => self::XML_ATTRIBUTE,
                 'type' => Element::TYPE_INTEGER
             ),
             'pages' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'xml_path' => 'Pages/Page',
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),
             'documentOptionId' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_STRING,
                 'compulsory' => false
             ),
             'staplingDetails' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
+                'xml_path' => 'StaplingDetails/Stapling',
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             )
@@ -128,7 +134,7 @@ class DocInFold extends Element{
     }
 
     /**
-     * @return array
+     * @return Stapling
      */
     public function getStaplingDetails()
     {
@@ -136,16 +142,15 @@ class DocInFold extends Element{
     }
 
     /**
-     * @param array $staplingDetails
+     * @param Stapling $staplingDetails
      */
-    public function addStaplingDetails($staplingDetails)
+    public function addStaplingDetails(Stapling $staplingDetails)
     {
         $this->staplingDetails[] = $staplingDetails;
     }
 
     function verifyLogic()
     {
-
     }
 
 

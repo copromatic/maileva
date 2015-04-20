@@ -61,6 +61,10 @@ class Hash extends Element{
         $this->hash = $hash;
     }
 
+    public function toXmlHash(\DOMElement $parent, $namespace){
+        $parent->nodeValue = $this->getHash();
+    }
+
     function verifyLogic()
     {
         // TODO: Implement verifyLogic() method.

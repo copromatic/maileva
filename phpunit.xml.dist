@@ -11,8 +11,39 @@
         <ini name="error_reporting" value="-16385"/>
     </php>
     <testsuites>
-        <testsuite name="Symfony Validator Component Test Suite">
-            <directory>./tests/</directory>
+        <testsuite name="Recipients / Senders">
+            <file>./tests/Element/UserTest.php</file>
+
+            <file>./tests/Element/PaperAddressTest.php</file>
+
+            <file>./tests/Element/SenderTest.php</file>
+            <file>./tests/Element/RecipientTest.php</file>
+        </testsuite>
+        <testsuite name="Document">
+            <file>./tests/Element/ContentTest.php</file>
+            <file>./tests/Element/HashTest.php</file>
+            <file>./tests/Element/ContentMergeFieldTest.php</file>
+            <file>./tests/Element/MergeFieldTest.php</file>
+            <file>./tests/Element/DocumentTest.php</file>
+        </testsuite>
+        <testsuite name="Options">
+            <file>./tests/Element/Option/RequestTest.php</file>
+            <file>./tests/Element/Option/DocumentTest.php</file>
+            <file>./tests/Element/Option/PageTest.php</file>
+            <file>./tests/Element/OptionTest.php</file>
+        </testsuite>
+        <testsuite name="Fold">
+            <file>./tests/Element/MergeValueTest.php</file>
+            <file>./tests/Element/DocInFoldTest.php</file>
+        </testsuite>
+        <testsuite name="Request">
+            <file>./tests/Element/RequestTest.php</file>
+        </testsuite>
+        <testsuite name="Campaign">
+            <file>./tests/Element/CampaignTest.php</file>
+        </testsuite>
+        <testsuite name="FTP">
+            <file>./tests/Ftp/CommandTest.php</file>
         </testsuite>
     </testsuites>
 </phpunit>

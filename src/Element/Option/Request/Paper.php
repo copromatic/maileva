@@ -5,8 +5,12 @@ use Maileva\Element;
 
 class Paper extends Element{
 
+    /** @var bool  */
     protected $removeInvalidReturnEnvelope = '';
+    /** @var bool  */
     protected $stampAdjust = '';
+
+    /** @var Element\Option\Fold\Paper */
     protected $foldOption = '';
 
     function __construct()
@@ -14,16 +18,19 @@ class Paper extends Element{
         $this->_definition = array(
             'removeInvalidReturnEnvelope' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_BOOLEAN,
                 'compulsory' => false
             ),
             'stampAdjust' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_BOOLEAN,
                 'compulsory' => false
             ),
             'foldOption' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             )
@@ -31,7 +38,7 @@ class Paper extends Element{
     }
 
     /**
-     * @return string
+     * @return Element\Option\Fold\Paper
      */
     public function getFoldOption()
     {
@@ -39,15 +46,15 @@ class Paper extends Element{
     }
 
     /**
-     * @param string $foldOption
+     * @param Element\Option\Fold\Paper $foldOption
      */
-    public function setFoldOption($foldOption)
+    public function setFoldOption(Element\Option\Fold\Paper $foldOption)
     {
         $this->foldOption = $foldOption;
     }
 
     /**
-     * @return string
+     * @return boolean
      */
     public function isRemoveInvalidReturnEnvelope()
     {
@@ -55,7 +62,7 @@ class Paper extends Element{
     }
 
     /**
-     * @param string $removeInvalidReturnEnvelope
+     * @param boolean $removeInvalidReturnEnvelope
      */
     public function setRemoveInvalidReturnEnvelope($removeInvalidReturnEnvelope)
     {
@@ -63,7 +70,7 @@ class Paper extends Element{
     }
 
     /**
-     * @return string
+     * @return boolean
      */
     public function isStampAdjust()
     {
@@ -71,7 +78,7 @@ class Paper extends Element{
     }
 
     /**
-     * @param string $stampAdjust
+     * @param boolean $stampAdjust
      */
     public function setStampAdjust($stampAdjust)
     {
