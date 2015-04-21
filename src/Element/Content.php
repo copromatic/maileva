@@ -92,7 +92,7 @@ class Content extends Element{
         if($this->getUri() !== ''){
             $allowed = self::getAllowedExtension();
             $extension = substr(strrchr($this->getUri(), "."), 1);
-            if(!in_array($extension, $allowed)){
+            if(!in_array($extension, $allowed) && !preg_match('/^[0-9]{3}$/', $extension)){
                 throw new \Maileva\Exception\Element(get_class($this).' extension not allowed: '.$extension);
             }
         }

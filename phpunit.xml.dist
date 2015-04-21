@@ -37,6 +37,7 @@
             <file>./tests/Element/DocInFoldTest.php</file>
         </testsuite>
         <testsuite name="Request">
+            <file>./tests/Element/NotificationTest.php</file>
             <file>./tests/Element/RequestTest.php</file>
         </testsuite>
         <testsuite name="Campaign">

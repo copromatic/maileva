@@ -1,6 +1,8 @@
 <?php
 namespace Maileva;
 
+use Maileva\Element\Campaign;
+
 abstract class Element {
     const VERSION = '1.0';
 
@@ -211,5 +213,30 @@ abstract class Element {
         }
 
         $this->verifyLogic();
+    }
+
+    /***
+     * @param Campaign $campaign
+     * @return \DOMDocument
+     */
+    public static function getDomFromCampaign(Campaign $campaign){
+        $domDoc = new \DOMDocument();
+        $element = $domDoc->createElementNS(\Maileva\Element::NAMESPACE_PJS, 'pjs:Campaign');
+        $element->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:com', \Maileva\Element::NAMESPACE_COM);
+        $element->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:spec', \Maileva\Element::NAMESPACE_SPEC);
+        $element->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', \Maileva\Element::NAMESPACE_XSI);
+        $domDoc->appendChild($element);
+
+        //Verification de la syntax du xml
+        $campaign->verify();
+
+        //generation du XML
+        $campaign->generateXml($element);
+
+        return $domDoc;
+    }
+
+    public static function getXmlSchema(){
+        return __DIR__.'/../xsd/1.0.9/MailevaPJS.xsd';
     }
 }

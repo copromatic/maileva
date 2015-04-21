@@ -65,6 +65,7 @@ class Request extends Element{
             ),
             'notifications' => array(
                 'xml' => self::XML_ELEMENT,
+                'xml_path' => 'Notifications/Notification',
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
             ),
@@ -141,7 +142,7 @@ class Request extends Element{
     /**
      * @param array $notifications
      */
-    public function addNotification($notification)
+    public function addNotification(Notification $notification)
     {
         $this->notifications[] = $notification;
     }

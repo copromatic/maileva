@@ -12,6 +12,7 @@ class Command {
     const GATEWAY_MOD_P = 'MOD_P';
     const GATEWAY_PAPER_XML = 'PAPER_XML';
     const GATEWAY_LOCADR = 'LOCADR';
+    const GATEWAY_TMPL_P = 'TMPL_P';
 
     const HASH_NO = 'NO';
     const HASH_MD5 = 'MD5';
@@ -87,12 +88,43 @@ class Command {
         $this->data['CRYPT_MODE'] = $cryptMode;
     }
 
-    public function generateFile($filename){
+    public function saveInFile($filename){
         $content = '';
         foreach($this->data as $name => $value){
             $content .= $name.'='.$value.'
 ';
         }
         return file_put_contents($filename, substr($content, 0, strlen($content)-1));
+    }
+
+    public function getExtensionFile(){
+        switch($this->data['GATEWAY']){
+            case self::GATEWAY_PAPER:
+            case self::GATEWAY_PAPER_XML:
+                return 'cou';
+                break;
+            case self::GATEWAY_FAX:
+                return 'fax';
+                break;
+            case self::GATEWAY_EMAIL:
+                return 'ema';
+                break;
+            case self::GATEWAY_SMS:
+                return 'sms';
+                break;
+            case self::GATEWAY_FLOW:
+                return 'flw';
+                break;
+            case self::GATEWAY_TMPL_P:
+                return 'tco';
+                break;
+            case self::GATEWAY_MOD_P:
+                return 'mod';
+                break;
+            case self::GATEWAY_LOCADR:
+                return 'add';
+                break;
+        }
+        throw new \Exception('Extension can\'t be guessed from the gateway');
     }
 }

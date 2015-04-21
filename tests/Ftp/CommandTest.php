@@ -9,7 +9,8 @@ class CommandTest extends \PHPUnit_Framework_TestCase{
         $command = new Command('testId', Command::GATEWAY_PAPER_XML);
 
         $filename = __DIR__.'/test_'.date('YmdHis').'.tmp';
-        $this->assertGreaterThan(0, $command->generateFile($filename), 'The file of the commands can\'t be generated.');
+        $command->saveInFile($filename);
+        $this->assertGreaterThan(0, filesize($filename), 'The file of the commands can\'t be generated.');
         unlink($filename);
     }
 

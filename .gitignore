@@ -1,3 +1,5 @@
 .idea/
 vendor/
 composer.lock
+public/scenarii/package/packages/
+.DS_Store
