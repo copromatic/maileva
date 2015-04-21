@@ -13,13 +13,15 @@ class Paper extends Element{
     {
         $this->_definition = array(
             'country' => array(
-                'xml' => self::XML_ATTRIBUTE,
+                'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_STRING,
                 'max' => 38,
                 'compulsory' => false
             ),
             'countryCode' => array(
-                'xml' => self::XML_ATTRIBUTE,
+                'xml' => self::XML_ELEMENT,
+                'xml_namespace' => Element::NAMESPACE_COM,
                 'type' => Element::TYPE_CHOICES,
                 'choices' => array_keys(Country::getCountries()),
                 'compulsory' => false
@@ -40,6 +42,16 @@ class Paper extends Element{
 
     public function setFrenchAddress($a1, $a2, $a3, $a4, $a5, $code_postal, $ville){
         $this->addressLines = array($a1, $a2, $a3, $a4, $a5, $code_postal.' '.$ville);
+        $this->setCountry('FRANCE');
+        $this->setCountryCode('FR');
+    }
+
+    public function setFrenchCompanyAddress($name_company, $name_recipient, $building, $street, $more, $code_postal, $ville, $cedex = ''){
+        $this->setFrenchAddress($name_company, $name_recipient, $building, $street, $more, $code_postal, $ville.' CEDEX '.$cedex);
+    }
+
+    public function setFrenchIndividualAddress($name_recipient, $building, $more_building, $street, $more, $code_postal, $ville){
+        $this->setFrenchAddress($name_recipient, $more_building, $building, $street, $more, $code_postal, $ville);
     }
 
     /**
