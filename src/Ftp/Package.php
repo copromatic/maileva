@@ -162,4 +162,8 @@ class Package {
 
         return md5($content);
     }
+
+    public function getPackageDirectory(){
+        return $this->directory.(($this->save_src)?'/ftp':'').'/';
+    }
 }
