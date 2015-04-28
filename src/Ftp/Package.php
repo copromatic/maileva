@@ -22,6 +22,21 @@ class Package {
 
     protected $files_packages = array();
 
+    public static function pushExistingPackage($directory, $ftp_host, $ftp_username, $ftp_password, $directory_ftp = ''){
+        $files = scandir($directory);
+
+        $files_to_push = array();
+        foreach($files as $file){
+            if($file == '.' || $file == '..'){
+                $files_to_push[] = $file;
+            }
+        }
+
+        //TODO
+        $extension = 'cou';
+        return self::pushFilesToFtp($files_to_push, $extension, $ftp_host, $ftp_username, $ftp_password, $directory_ftp);
+    }
+
     function __construct(Command $command, $package_name = '', $packages_directory = '', $zip = false, $hash = false, $crypt = false)
     {
         $this->save_src = ($packages_directory == '')?false:true;
@@ -62,6 +77,10 @@ class Package {
     }
 
     public function push($ftp_host, $ftp_username, $ftp_password, $directory_ftp = ''){
+        return self::pushFilesToFtp($this->files_packages, $this->command->getExtensionFile(), $ftp_host, $ftp_username, $ftp_password, $directory_ftp);
+    }
+
+    public static function pushFilesToFtp($files, $extension, $ftp_host, $ftp_username, $ftp_password, $directory_ftp = ''){
         // set up basic connection
         $conn_id = ftp_connect($ftp_host);
 
@@ -70,15 +89,15 @@ class Package {
         if(!$login_result){
             return false;
         }
-        foreach($this->files_packages as $i => $filename){
+        foreach($files as $i => $filename){
             $mode = FTP_BINARY;
-            if(count($this->files_packages) == $i +1){
+            if(count($files) == $i+1){
                 $mode = FTP_ASCII;
             }
             ftp_put($conn_id, $directory_ftp.'/'.basename($filename), $filename, $mode);
         }
         //renommage du fichier de commands
-        ftp_rename($conn_id, $directory_ftp.'/'.basename($filename), $directory_ftp.'/'.substr(basename($filename), 0, strrpos(basename($filename), ".")+1).$this->command->getExtensionFile());
+        ftp_rename($conn_id, $directory_ftp.'/'.basename($filename), $directory_ftp.'/'.substr(basename($filename), 0, strrpos(basename($filename), ".")+1).$extension);
 
         // close the connection
         ftp_close($conn_id);
