@@ -49,8 +49,7 @@ class Command {
             'NB_FILE' => 0,
             'HASH_MODE' => self::HASH_NO,
             'ZIP_MODE' => self::ZIP_NO,
-            'CRYPT_MODE' => self::CRYPT_NO,
-            'NB_DOC_SUP' => 0
+            'CRYPT_MODE' => self::CRYPT_NO
         );
     }
 
