@@ -24,8 +24,6 @@ class Request extends Element{
 
     function __construct()
     {
-        $this->setProductionDate(new \DateTime());
-
         $this->_definition = array(
             'trackId' => array(
                 'xml' => Element::XML_ATTRIBUTE,
