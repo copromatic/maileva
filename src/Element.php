@@ -194,11 +194,13 @@ abstract class Element {
                     }
                     break;
                 case self::TYPE_DATE:
-                    if(!($varValue instanceof \DateTime)){
-                        throw new \Maileva\Exception\Element(get_class($this).':'.$varName.' should be a date.');
-                    }
-                    if(!isset($this->_definition[$varName]['format'])){
-                        throw new \Maileva\Exception\Element(get_class($this).':'.$varName.' date format not specified.');
+                    if($varValue != '' && $varValue != null){
+                        if(!($varValue instanceof \DateTime)){
+                            throw new \Maileva\Exception\Element(get_class($this).':'.$varName.' should be a date.');
+                        }
+                        if(!isset($this->_definition[$varName]['format'])){
+                            throw new \Maileva\Exception\Element(get_class($this).':'.$varName.' date format not specified.');
+                        }
                     }
                     break;
                 case self::TYPE_CHOICES:

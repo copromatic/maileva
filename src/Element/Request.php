@@ -15,7 +15,7 @@ class Request extends Element{
     protected $folds = array();
     protected $notifications = array();
     /** @var \DateTime  */
-    protected $productionDate;
+    protected $productionDate = '';
     protected $options = '';
 
     const PAPER = 'PAPER';
