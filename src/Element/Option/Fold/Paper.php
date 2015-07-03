@@ -61,6 +61,8 @@ class Paper extends Element{
     protected $documentOption = '';
     protected $depositTitle = '';
     protected $depositDescription = '';
+    protected $switchingPolicy = '';
+    protected $forceSendingMode = '';
 
     function __construct()
     {

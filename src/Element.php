@@ -86,7 +86,7 @@ abstract class Element {
                                 if(is_bool($value) && $value === false){
                                     continue;
                                 }
-                                $node = new \DOMElement($xmlName, ($value === true)?null:$value, $xmlNamespace);
+                                $node = new \DOMElement($xmlName, $value, $xmlNamespace);
                                 $xmlToUse->appendChild($node);
                             }
                         }

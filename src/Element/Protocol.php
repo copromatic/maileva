@@ -17,7 +17,7 @@ class Protocol extends Element{
             'email' => array(
                 'xml' => self::XML_ELEMENT,
                 'xml_namespace' => Element::NAMESPACE_SPEC,
-                'type' => Element::TYPE_ELEMENT,
+                'type' => Element::TYPE_STRING,
                 'compulsory' => false
             ),
             'ftp' => array(
@@ -31,13 +31,7 @@ class Protocol extends Element{
                 'xml_namespace' => Element::NAMESPACE_SPEC,
                 'type' => Element::TYPE_ELEMENT,
                 'compulsory' => false
-            ),
-            'email' => array(
-                'xml' => self::XML_ELEMENT,
-                'xml_namespace' => Element::NAMESPACE_SPEC,
-                'type' => Element::TYPE_ELEMENT,
-                'compulsory' => false
-            ),
+            )
         );
     }
 
