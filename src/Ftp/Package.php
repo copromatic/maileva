@@ -123,6 +123,9 @@ class Package {
 
         //Creation de lelement root pour le xml
         $domDoc = Element::getDomFromCampaign($campaign);
+        // Beautiful output
+        $domDoc->preserveWhiteSpace = false;
+        $domDoc->formatOutput = true;
 
         //sauvegarde dans un fichier
         $filename_pjs = (($this->save_src)?$this->directory . '/src/':sys_get_temp_dir().'/').'pjs.xml';
