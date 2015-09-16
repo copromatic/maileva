@@ -17,4 +17,7 @@ if(!isset($_GET['xml'])){
 }
 
 header('Content-Type: application/xml; charset=utf-8');
+// Pretty output
+$domDoc->preserveWhiteSpace = false;
+$domDoc->formatOutput = true;
 echo $domDoc->saveXML();

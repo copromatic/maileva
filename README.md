@@ -17,6 +17,6 @@ Démo
 ----
 Voir les exemples d'utilisation suivants :
 - [Génération XML](public/scenarii/xml/xml.php)
-- [Lancement d'un campagne](public/scenarii/assets/campaign0.php)
-- [Génération du Package](public/scenarii/package/package.php)
+- [Lancement d'une campagne](public/scenarii/assets/campaign0.php)
+- [Génération du package](public/scenarii/package/package.php)
 
