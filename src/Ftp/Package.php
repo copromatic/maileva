@@ -83,6 +83,9 @@ class Package {
     public static function pushFilesToFtp($files, $extension, $ftp_host, $ftp_username, $ftp_password, $directory_ftp = ''){
         // set up basic connection
         $conn_id = ftp_connect($ftp_host);
+        if (!$conn_id) {
+            return false;
+        }
 
         // login with username and password
         $login_result = ftp_login($conn_id, $ftp_username, $ftp_password);
