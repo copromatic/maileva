@@ -83,6 +83,9 @@ class Package {
     public static function pushFilesToFtp($files, $extension, $ftp_host, $ftp_username, $ftp_password, $directory_ftp = ''){
         // set up basic connection
         $conn_id = ftp_connect($ftp_host);
+        if (!$conn_id) {
+            return false;
+        }
 
         // login with username and password
         $login_result = ftp_login($conn_id, $ftp_username, $ftp_password);
@@ -123,6 +126,9 @@ class Package {
 
         //Creation de lelement root pour le xml
         $domDoc = Element::getDomFromCampaign($campaign);
+        // Beautiful output
+        $domDoc->preserveWhiteSpace = false;
+        $domDoc->formatOutput = true;
 
         //sauvegarde dans un fichier
         $filename_pjs = (($this->save_src)?$this->directory . '/src/':sys_get_temp_dir().'/').'pjs.xml';
