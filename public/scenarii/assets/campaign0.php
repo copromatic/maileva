@@ -125,8 +125,21 @@ $fold->addMergeValue($mergeValue);
 $request->addFold($fold);
 
 /**********   Options   ********/
-$request->setOptions(new \Maileva\Element\Option());
 
+$foldPaperOption = new \Maileva\Element\Option\Fold\Paper();
+$foldPaperOption->setEnvelopeType(\Maileva\Element\Option\Fold\Paper::ENVELOPETYPE_C4);
+$foldPaperOption->setPostageClass(\Maileva\Element\Option\Fold\Paper::POSTAGECLASS_STANDARD);
+
+$requestPaperOption = new \Maileva\Element\Option\Request\Paper();
+$requestPaperOption->setFoldOption($foldPaperOption);
+
+$requestOption = new \Maileva\Element\Option\Request();
+$requestOption->setPaperOption($requestPaperOption);
+
+$option = new \Maileva\Element\Option();
+$option->setRequestOption($requestOption);
+
+$request->setOptions($option);
 
 /**********   Notifications   ********/
 $notification = new \Maileva\Element\Notification();
