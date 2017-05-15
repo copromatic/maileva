@@ -13,9 +13,6 @@ class MailevaExtension implements ExtensionInterface {
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        $processor = new Processor();
-        $configuration = new Configuration();
-        $config = $processor->processConfiguration($configuration, $configs);
         $loader = new YamlFileLoader(
             $container,
             new FileLocator(__DIR__.'/../Resources/config')
@@ -23,4 +20,18 @@ class MailevaExtension implements ExtensionInterface {
         $loader->load('services.yml');
     }
 
+    public function getNamespace()
+    {
+        // TODO: Implement getNamespace() method.
+    }
+
+    public function getXsdValidationBasePath()
+    {
+        // TODO: Implement getXsdValidationBasePath() method.
+    }
+
+    public function getAlias()
+    {
+        // TODO: Implement getAlias() method.
+    }
 }

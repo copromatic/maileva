@@ -1,14 +1,14 @@
 <?php
 
+use Maileva\DependencyInjection\MailevaExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder,
     Symfony\Component\Yaml\Yaml;
-use Acme\DependencyInjection\AcmeExtension;
 
 class Application {
     private $container;
 
     public function __construct() {
-        $this->container = new ContainerBuidler();
+        $this->container = new ContainerBuilder();
     }
 
     public function build($configPath) {
