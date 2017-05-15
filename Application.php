@@ -16,4 +16,8 @@ class Application {
         $this->container->loadFromExtension(new MailevaExtension(), $userConfig);
         $this->container->compile();
     }
+
+    public function getApi() {
+        return $this->container->get('maileva.api');
+    }
 }
