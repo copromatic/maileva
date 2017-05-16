@@ -2,7 +2,3 @@ services:
     maileva.api:
         class: Maileva\Services\Api
         arguments: ['%maileva.application_name%']
-        calls:
-            - [configureXmlConnecteur, ['%maileva.user_connecteur_xml%', '%maileva.password_connecteur_xml%', '', '%maileva.package_directory%']]
-            - [setRatesInformations, ['%%']]
-            - [setLogger, ['@logger']]

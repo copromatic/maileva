@@ -26,11 +26,11 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->arrayNode('rate')
                     ->children()
-                        ->scalarNode('page')->end()
+                        ->floatNode('page')->end()
                         ->arrayNode('fold')
                             ->children()
-                                ->scalarNode('courriersimple')->end()
-                                ->scalarNode('recommandear')->end()
+                                ->floatNode('courriersimple')->end()
+                                ->floatNode('recommandear')->end()
                             ->end()
                         ->end()
                         ->arrayNode('weight')
@@ -40,7 +40,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->scalarNode('package_directory')->end()
-                ->scalarNode('A4paperweight')->end()
+                ->floatNode('A4paperweight')->end()
             ->end()
         ;
         return $treeBuilder;

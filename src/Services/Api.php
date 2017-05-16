@@ -27,7 +27,7 @@ class Api {
         $this->ratePerPage = 0;
         $this->courrierSimpleFoldRate = 0;
         $this->recommandeArFoldRate = 0;
-        $this->weightConditions = 0;
+        $this->weightConditions = [];
         $this->A4paperweight = 0;
     }
 
@@ -226,36 +226,15 @@ class Api {
     public function getMailWeightPrice($nbPage, $foldFormat, $duplex)
     {
         //tarif timbre
-        $weight = $this->A4paperweight * (($duplex)?ceil($nbPage/2):$nbPage);
-        switch ($weight){
-            case $weight < 20 :
-                $weightRate = $this->weightConditions[20];
-                break;
-            case $weight < 50 :
-                $weightRate = $this->weightConditions[50];
-                break;
-            case $weight < 100 :
-                $weightRate = $this->weightConditions[100];
-                break;
-            case $weight < 250 :
-                $weightRate = $this->weightConditions[250];
-                break;
-            case $weight < 500 :
-                $weightRate = $this->weightConditions[500];
-                break;
-            case $weight < 1000 :
-                $weightRate = $this->weightConditions[1000];
-                break;
-            case $weight < 2000 :
-                $weightRate = $this->weightConditions[2000];
-                break;
-            case $weight < 3000 :
-                $weightRate = $this->weightConditions[3000];
-                break;
-            default :
-                $weightRate = 0;
-        }
+        $weightRes = $this->A4paperweight * (($duplex)?ceil($nbPage/2):$nbPage);
+        $weightRate = 0;
 
+        foreach ($this->weightConditions as $weight => $cost) {
+            if ($weightRes < $weight) {
+                $weightRate = $cost;
+                break;
+            }
+        }
         return $weightRate;
     }
 }
