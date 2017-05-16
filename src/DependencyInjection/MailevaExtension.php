@@ -30,8 +30,7 @@ class MailevaExtension implements ExtensionInterface {
         // TODO: Implement getXsdValidationBasePath() method.
     }
 
-    public function getAlias()
-    {
-        // TODO: Implement getAlias() method.
+    public function getAlias() {
+        return 'maileva';
     }
 }
