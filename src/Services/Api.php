@@ -2,6 +2,8 @@
 
 namespace Maileva\Services;
 
+use Psr\Log\LoggerInterface;
+
 class Api {
     protected $application_name = '';
 
@@ -16,7 +18,7 @@ class Api {
     protected $weightConditions;
     protected $A4paperweight;
 
-    /** @var Psr\Log\LoggerInterface */
+    /** @var LoggerInterface */
     protected $logger = null;
 
     function __construct($application_name)
@@ -37,7 +39,7 @@ class Api {
         $this->packages_directory = $packages_directory;
     }
 
-    public function setLogger(Psr\Log\LoggerInterface $logger){
+    public function setLogger(LoggerInterface $logger){
         $this->logger = $logger;
     }
 
