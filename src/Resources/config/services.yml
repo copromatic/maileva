@@ -1,0 +1,4 @@
+services:
+    maileva.api:
+        class: Maileva\Services\Api
+        arguments: ['%maileva.application_name%']
