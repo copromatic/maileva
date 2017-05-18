@@ -92,6 +92,8 @@ class Package {
         if(!$login_result){
             return false;
         }
+        // enable passive mode
+        ftp_pasv($conn_id, TRUE);
         foreach($files as $i => $filename){
             $mode = FTP_BINARY;
             if(count($files) == $i+1){
