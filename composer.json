@@ -9,7 +9,7 @@
     ],
     "require": {
         "php": ">=5.4",
-        "symfony/yaml": "^3.1",
+        "symfony/yaml": "^3.0",
         "symfony/dependency-injection": "^3.1",
         "symfony/http-kernel": "^3.1",
         "symfony/config": "^3.1"
