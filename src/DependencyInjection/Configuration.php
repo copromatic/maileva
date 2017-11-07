@@ -41,6 +41,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('package_directory')->end()
                 ->floatNode('A4paperweight')->end()
+                ->scalarNode('email_notification')->end()
             ->end()
         ;
         return $treeBuilder;
