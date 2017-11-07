@@ -36,6 +36,7 @@ class MailevaExtension implements ExtensionInterface {
             $config['rate']['fold']['recommandear'], $config['rate']['weight'],
             $config['A4paperweight']
         ]);
+        $defApi->addMethodCall('setEmailNotification', [$config['email_notification']]);
 
         //$defApi->addMethodCall('setLogger', $container->getDefinition('logger'));
     }
