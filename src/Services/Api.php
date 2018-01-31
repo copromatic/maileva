@@ -211,6 +211,7 @@ class Api {
                 $foldRate = $this->recommandeArFoldRate;
                 break;
             case \Maileva\Element\Option\Fold\Paper::POSTAGECLASS_STANDARD :
+            case \Maileva\Element\Option\Fold\Paper::POSTAGECLASS_LETTRE_VERTE :
             default :
                 $foldRate = $this->courrierSimpleFoldRate;
                 break;
@@ -232,7 +233,7 @@ class Api {
 
         foreach ($this->weightConditions as $weight => $cost) {
             if ($weightRes < $weight) {
-                $weightRate = $cost;
+                $weightRate = $cost[$foldFormat];
                 break;
             }
         }
