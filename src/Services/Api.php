@@ -18,6 +18,7 @@ class Api {
     protected $recommandeArFoldRate;
     protected $weightConditions;
     protected $A4paperweight;
+    protected $arRate;
 
     /** @var LoggerInterface */
     protected $logger = null;
@@ -30,6 +31,7 @@ class Api {
         $this->recommandeArFoldRate = 0;
         $this->weightConditions = [];
         $this->A4paperweight = 0;
+        $this->arRate = 0;
     }
 
     function configureXmlConnecteur($username, $password, $ftp_options, $packages_directory = null)
@@ -183,13 +185,14 @@ class Api {
         }
     }
 
-    public function setRatesInformations($ratePerPage, $courrierSimpleFoldRate, $recommandeArFoldRate, $weightConditions, $A4paperweight)
+    public function setRatesInformations($ratePerPage, $courrierSimpleFoldRate, $recommandeArFoldRate, $weightConditions, $A4paperweight, $arRate)
     {
         $this->ratePerPage = $ratePerPage;
         $this->courrierSimpleFoldRate = $courrierSimpleFoldRate;
         $this->recommandeArFoldRate = $recommandeArFoldRate;
         $this->weightConditions = $weightConditions;
         $this->A4paperweight = $A4paperweight;
+        $this->arRate = $arRate;
     }
 
     public function getRatesInformations()
@@ -199,7 +202,8 @@ class Api {
             'courrierSimpleFoldRate' => $this->courrierSimpleFoldRate,
             'recommandeArFoldRate' => $this->recommandeArFoldRate,
             'weightConditions' => $this->weightConditions,
-            'A4paperweight' => $this->A4paperweight
+            'A4paperweight' => $this->A4paperweight,
+            'arRate' => $this->arRate
         );
     }
 
@@ -237,6 +241,11 @@ class Api {
                 break;
             }
         }
+        
+        if($foldFormat == \Maileva\Element\Option\Fold\Paper::POSTAGECLASS_RECOMMANDE_AR){
+            $weightRate += $this->arRate;
+        }
+        
         return $weightRate;
     }
 }
