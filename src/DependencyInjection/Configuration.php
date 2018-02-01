@@ -27,6 +27,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('rate')
                     ->children()
                         ->floatNode('page')->end()
+                        ->floatNode('ar')->end()
                         ->arrayNode('fold')
                             ->children()
                                 ->floatNode('courriersimple')->end()
