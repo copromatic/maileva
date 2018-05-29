@@ -89,7 +89,7 @@ class Api {
                 'Package generated',
                 $data_log
             );
-        }catch (Exception $e){
+        }catch (\Exception $e){
             $this->log(
                 LogLevel::ERROR,
                 'Package not generated: '.$e->getMessage(),
@@ -142,7 +142,7 @@ class Api {
                 'Package pushed',
                 $data_log
             );
-        }catch (Exception $e){
+        }catch (\Exception $e){
             $this->log(
                 LogLevel::ERROR,
                 'Package not pushed: '.$e->getMessage(),
@@ -175,7 +175,7 @@ class Api {
             );
 
             return true;
-        }catch (Exception $e){
+        }catch (\Exception $e){
             $this->log(
                 LogLevel::ERROR,
                 'Package not pushed to the ftp: '.$e->getMessage(),
